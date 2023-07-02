@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Numerics;
 using System.Runtime.CompilerServices;
-using System.Xml;
 
 namespace System;
 public static class Helper
 {
+    public readonly static ArrayGenerator<int> @int = new();
+    public readonly static LinkListGenerator lx = new();
     public static void WriteLine(this string value) => Console.WriteLine(value);
     public static void Dump<T>(this T[] array, [CallerLineNumber] int line = 0)
         => Console.WriteLine($"@{line}:  {string.Join(", ", array)}");
@@ -125,6 +126,117 @@ public static class Helper
                 Console.WriteLine($"Exptected: {exp}, Actual: {act}");
             }
             Console.ResetColor();
+        }
+
+        
+    }
+
+    public static ArrayGenerator<T> ArraysOf<T>() => new();
+
+    public class ArrayGenerator<T>
+    {
+        public T[] this[params T[] ints] => ints;
+        public T[] Empty => Array.Empty<T>();
+
+        public static explicit operator T[](ArrayGenerator<T> g) => g.Empty;
+    }
+
+    public class ListNode: IEnumerable<int>, IEqualityOperators<ListNode?, ListNode?, bool>
+    {
+        public int val;
+        public ListNode? next;
+
+        public ListNode(int val = 0, ListNode? next = null)
+        {
+            this.val = val;
+            this.next = next;
+        }
+
+        public IEnumerator<int> GetEnumerator()
+        {
+            var node = this;
+            do
+            {
+                yield return node.val;
+                node = node.next;
+            } 
+            while (node != null);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            return "[" + string.Join(", ", this) + "]";             
+        }
+
+        public static bool operator ==(ListNode? left, ListNode? right)
+        {
+            return (left, right) switch
+            {
+                (ListNode l, ListNode r) => l.Equals(r),
+                (null, null) => true,
+                _ => false
+            };
+        }
+
+        public static bool operator !=(ListNode? left, ListNode? right)
+        {
+            return !(left == right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(obj, null))
+            {
+                return false;
+            }
+
+            if(obj is ListNode other)
+            {
+                return this.SequenceEqual(other);
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int h = 37;
+            foreach(int item in this)
+            {
+                h += (h * 17) + item.GetHashCode(); 
+            }
+            return h;
+        }
+    }
+
+    public class LinkListGenerator
+    {
+        public ListNode this[params int[] ints]
+        {
+            get
+            {                
+                return AsLinkList(ints.AsSpan());
+            }
+        }
+
+        private ListNode AsLinkList(Span<int> values)
+        {            
+            if (values.Length == 1)
+            {
+                return new(values[0], null);
+            }
+           
+            return new(values[0], AsLinkList(values[1..]));
         }
     }
 }

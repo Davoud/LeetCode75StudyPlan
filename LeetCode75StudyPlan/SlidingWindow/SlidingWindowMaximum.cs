@@ -13,9 +13,6 @@ internal class SlidingWindowMaximum : ITestable
 
         ((int[] nums, int k), int[])[] cases = new[]
         {
-            ((nums: Arr(10, 10, 10, 9, 9, 9, 8, 8, 8, 7, 7, 7, 5, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1),
-                k: 15), Arr(10, 10, 10, 9, 9, 9, 8, 8, 8, 7, 7, 7, 5)),
-            
             ((nums: Arr(-7,-8,7,5,7,1,6,0), k: 4), Arr(7,7,7,7,7)),
             ((nums: Arr(1,3,1,2,0,5),       k: 3), Arr(3,3,2,5)),
             ((nums: Arr(9,10,9,-7,-4,-8,2,-6), k: 5), Arr(10, 10, 9, 2)),
@@ -26,15 +23,71 @@ internal class SlidingWindowMaximum : ITestable
             ((nums: Arr(4,3,3,1),           k: 4), Arr(4)),
             ((nums: Arr(-1,4,3,2,1),        k: 5), Arr(4)),
             ((nums: Arr(1),                 k: 1), Arr(1)),
-            
+            ((nums: Arr(10, 10, 10, 9, 9, 9, 8, 8, 8, 7, 7, 7, 5, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1),
+                                            k: 15), Arr(10, 10, 10, 9, 9, 9, 8, 8, 8, 7, 7, 7, 5)),
+
         };
 
         cases.RunTests(i => MaxSlidingWindow(i.nums, i.k), (a, b) => a.SequenceEqual(b));
     }
 
-    
-
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
     public int[] MaxSlidingWindow(int[] nums, int k)
+    {
+        LinkedList<int> q = new();        
+        var result = new int[nums.Length - k + 1];
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            var index = i - k + 1;
+
+            while (q.Count > 0 && q.First.Value < index)
+                q.RemoveFirst();
+                      
+            while (q.Count > 0 && nums[q.Last.Value] < nums[i])
+                q.RemoveLast();
+
+            q.AddLast(i);
+
+            if(index >= 0)
+                result[index] = nums[q.First.Value];            
+        }
+
+        return result;
+    }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
+    public int[] MaxSlidingWindow2(int[] nums, int k)
+    {
+        var res = new int[nums.Length - k + 1];
+        var deque = new List<int>(nums.Length - 1);
+
+        var first = 0;
+
+        for (var i = 0; i < nums.Length; i++)
+        {
+            var num = nums[i];
+
+            while (deque.Count > 0 && num > nums[deque[^1]])
+                deque.RemoveAt(deque.Count - 1);
+
+            deque.Add(i);
+
+            if (i + 1 < k)
+                continue;
+
+            first = Math.Min(first, deque.Count - 1);
+
+            if (deque[^1] - deque[first] == k)
+                first++;
+
+            res[i - k + 1] = Math.Max(nums[deque[first]], nums[deque[^1]]);
+        }
+
+        return res;
+    }
+
+    public int[] MaxSlidingWindow1(int[] nums, int k)
     {
         if (k == 1) return nums;
 
@@ -49,7 +102,7 @@ internal class SlidingWindowMaximum : ITestable
             if (p == start - 1)
             {
                 if (value < max2)
-                    (p, q) = MaxIndex(nums, start, k);                
+                    (p, q) = MaxIndex(nums, start, k);
                 else
                     p = end;
             }
