@@ -102,6 +102,12 @@ public static class Helper
         }
     }
 
+    public static void RunTests<T, R>(Func<T, R> subject, params (T input, R expected)[] testCases)
+       where R : IEqualityOperators<R, R, bool>
+    {
+        testCases.RunTests(subject);        
+    }
+
     public static void RunTests<T>(this IEnumerable<(T input, bool expected)> testCases, Func<T, bool> subject)
     {
         testCases.RunTests(subject, (a, b) => a == b);
@@ -221,13 +227,15 @@ public static class Helper
 
     public class LinkListGenerator
     {
-        public ListNode this[params int[] ints]
+        public ListNode? this[params int[] ints]
         {
             get
             {                
                 return AsLinkList(ints.AsSpan());
             }
         }
+
+        public ListNode? Empty => null;
 
         private ListNode AsLinkList(Span<int> values)
         {            

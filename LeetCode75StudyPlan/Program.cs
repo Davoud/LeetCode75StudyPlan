@@ -6,7 +6,10 @@ using LeetCode75StudyPlan.Stack;
 Console.WriteLine("Running Tests... ");
 
 
-//((ITestable)new LargestRectangleInHistogram()).RunTests();
-((ITestable)new ListReorderer()).RunTests();
+
+
+
+((ITestable)new LRUCache(2)).RunTests();
+
 
 
