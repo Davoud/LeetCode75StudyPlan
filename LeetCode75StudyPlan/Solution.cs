@@ -41,7 +41,7 @@ internal abstract class Solution<T, R> : ITestable
 
     void ITestable.RunTests()
     {
-        Console.WriteLine(Title);
+        Console.WriteLine(Environment.NewLine + Title);
         TestCases.RunTests(Solve, IsEqual);
     }
 

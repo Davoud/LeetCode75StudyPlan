@@ -8,6 +8,13 @@ public static class Helper
     public readonly static ArrayGenerator<int> @int = new();
     public readonly static LinkListGenerator lx = new();
     public static void WriteLine(this string value) => Console.WriteLine(value);
+
+    public static void WriteFail(this (object expected, object actual) values)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"Exptected: {values.expected}, Actual: {values.actual}");
+        Console.ResetColor();
+    }
     public static void Dump<T>(this T[] array, [CallerLineNumber] int line = 0)
         => Console.WriteLine($"@{line}:  {string.Join(", ", array)}");
 
