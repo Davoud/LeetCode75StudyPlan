@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LeetCode75StudyPlan.BinarySearch;
+using System.Collections;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -9,12 +10,13 @@ public static class Helper
     public readonly static LinkListGenerator lx = new();
     public static void WriteLine(this string value) => Console.WriteLine(value);
 
-    public static void WriteFail(this (object expected, object actual) values)
+    public static void WriteResult(bool succeeded, object expected, object actual)
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"Exptected: {values.expected}, Actual: {values.actual}");
+        Console.ForegroundColor = succeeded ? ConsoleColor.Blue : ConsoleColor.Red;
+        Console.WriteLine($"Exptected: {expected}, Actual: {actual}");
         Console.ResetColor();
     }
+
     public static void Dump<T>(this T[] array, [CallerLineNumber] int line = 0)
         => Console.WriteLine($"@{line}:  {string.Join(", ", array)}");
 
@@ -142,6 +144,23 @@ public static class Helper
         }
 
         
+    }
+
+    public static int BinSearcher(int min, int max, Predicate<int> stisfises)
+    {        
+        while (min < max)
+        {
+            int mid = (max + min) >> 1; // min + (max - min) / 2;
+            if (stisfises(mid))
+            {
+                max = mid;
+            }
+            else
+            {
+                min = mid + 1;
+            }
+        }
+        return min;
     }
 
     public static ArrayGenerator<T> ArraysOf<T>() => new();

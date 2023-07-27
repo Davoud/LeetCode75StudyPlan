@@ -4,6 +4,7 @@ internal class TimeBasedKeyValueStore : ITestable
 {
     public class TimeMap
     {
+        private readonly Dictionary<string, string> _dic = new Dictionary<string, string>();
         public TimeMap()
         {
 
@@ -50,10 +51,7 @@ internal class TimeBasedKeyValueStore : ITestable
             else if(operation is Get g)
             {
                 var actual = map.Get(g.Key, g.Timestamp);
-                if(actual != g.Value) 
-                {
-                    (g.Value, actual).WriteFail();
-                }
+                WriteResult(actual == g.Value, g.Value, actual);                                
             }
         }
     }

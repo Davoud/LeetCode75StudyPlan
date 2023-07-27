@@ -6,7 +6,5 @@ using LeetCode75StudyPlan.Stack;
 
 Console.WriteLine("Running Tests... ");
 
+((ITestable)new MinimumNumberOfDaysToMakeBouquets()).RunTests();
 
-((ITestable)new KokoEatingBananas()).RunTests();
-
-//((ITestable)new TimeBasedKeyValueStore()).RunTests();
