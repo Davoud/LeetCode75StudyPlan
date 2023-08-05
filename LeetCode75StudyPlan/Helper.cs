@@ -40,7 +40,7 @@ public static class Helper
     }
 
     public static IEnumerable<T> Seq<T>(params T[] input) => input;
-    public static IList<T> Lst<T>(params T[] input) => input.ToList();
+    public static IList<T> List<T>(params T[] input) => input.ToList();
     public static ISet<T> Set<T>(params T[] input) => input.ToHashSet();
     public static ISet<T> Set<T>(IList<T> input) => input.ToHashSet();
 

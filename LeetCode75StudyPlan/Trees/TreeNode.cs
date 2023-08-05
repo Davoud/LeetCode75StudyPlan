@@ -1,5 +1,6 @@
 ﻿using LeetCode75StudyPlan.LinkLists;
 using System.Numerics;
+using System.Xml.Linq;
 
 namespace LeetCode75StudyPlan.Trees;
 
@@ -14,49 +15,21 @@ public class TreeNode : IEqualityOperators<TreeNode?, TreeNode?, bool>, IEquatab
         this.left = left;
         this.right = right;
     }
-    
-    public static bool operator ==(TreeNode? left, TreeNode? right)
-    {
-        return IsSameTree(left, right);
-    }
 
-    public static bool operator !=(TreeNode? left, TreeNode? right)
-    {
-        return !(left == right);
-    }
-
+    public static bool operator ==(TreeNode? left, TreeNode? right) => IsSameTree(left, right);
+    public static bool operator !=(TreeNode? left, TreeNode? right) => !(left == right);
     private static bool IsSameTree(TreeNode? p, TreeNode? q)
     {
-        if (p != null && q != null)
-        {
-            return p.val == q.val &&
-                IsSameTree(p.right, q.right) &&
-                IsSameTree(p.left, q.left);
-        }
-        if (p == null && q == null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        if (p is not null && q is not null)
+            return p.val == q.val && IsSameTree(p.right, q.right) && IsSameTree(p.left, q.left);        
+        
+        return p is null && q is null;
     }
 
-    public bool Equals(TreeNode? other)
-    {
-        return IsSameTree(this, other);
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return Equals(obj as TreeNode);
-    }
-
-    public override int GetHashCode()
-    {
-        return val.GetHashCode();        
-    }
+    public bool Equals(TreeNode? other) => ReferenceEquals(this, other);
+    public override bool Equals(object? obj) => Equals(obj as TreeNode);
+    public override int GetHashCode() => val.GetHashCode();
+    public override string ToString() => new StringBuilder($"[{val} | ").AppendJoin(" ", this.Values().Skip(1)).Append(']').ToString();
 }
 
 public static class TreeNodeExtensions
@@ -68,8 +41,8 @@ public static class TreeNodeExtensions
         while (stack.Count > 0)
         {
             var node = stack.Pop();
-            if(node.left != null) stack.Push(node.left);
-            if(node.right != null) stack.Push(node.right);
+            if (node.left is TreeNode left) stack.Push(left);
+            if (node.right is TreeNode right) stack.Push(right);
             yield return node;
         }
     }
@@ -87,9 +60,11 @@ public static class TreeNodeExtensions
         }
     }
 
+    public static TreeNode? Tree(params int?[] values) => values.ToTree();
+
     public static TreeNode? ToTree(this int?[] values)
     {
-        if (values.Length == 0 || values[0] == null) return null;
+        if (values.Length == 0 || values[0] is null) return null;
         
         var nodes = new TreeNode?[values.Length];
 
@@ -99,25 +74,24 @@ public static class TreeNodeExtensions
             {
                 var node = new TreeNode(value);
                 nodes[i] = node;
-                if (i > 0 && nodes[i / 2] is TreeNode parren)
+                if (i > 0 && nodes[(i-1) / 2] is TreeNode parren)
                 {
                     if (i % 2 == 0) 
-                        parren.left = node; 
+                        parren.right = node; 
                     else 
-                        parren.right = node;
+                        parren.left = node;
                 }
             }            
         }
 
         return nodes[0];
     }
-
-    public static string AsString(this TreeNode? node)
+   
+    public static TreeNode? FindNode(this TreeNode root, int value)
     {
-        if (node == null) return "[]";
-;       return new StringBuilder("[")
-            .AppendJoin(", ", node.Values())
-            .Append(']')
-            .ToString();        
+        foreach(var node in root.Nodes())
+            if(node.val == value) return node;
+                    
+        return null;
     }
 }

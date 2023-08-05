@@ -7,7 +7,6 @@ using LeetCode75StudyPlan.Trees;
 Console.WriteLine("Running Tests... ");
 
 
-
-//((ITestable)new TimeBasedKeyValueStore()).RunTests();
-//((ITestable)new KthSmallestNumberInMultiplicationTable()).RunTests();
+((ITestable)new BinaryTreeLevelOrderTraversal()).RunTests();
+((ITestable)new KthSmallestNumberInMultiplicationTable()).RunTests();
 
