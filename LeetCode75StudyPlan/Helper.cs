@@ -171,6 +171,21 @@ public static class Helper
         public T[] Empty => Array.Empty<T>();
 
         public static explicit operator T[](ArrayGenerator<T> g) => g.Empty;
+
+        public static class Math
+        {
+            public static int Gcd(int p, int q)
+            {
+                if (p < q) return Gcd(q, p);
+                int r = p % q;
+                while (r > 0)
+                {
+                    (p, q) = (q, r);
+                    r = p % q;
+                }
+                return q;
+            }
+        }
     }
 
     public class ListNode: IEnumerable<int>, IEqualityOperators<ListNode?, ListNode?, bool>

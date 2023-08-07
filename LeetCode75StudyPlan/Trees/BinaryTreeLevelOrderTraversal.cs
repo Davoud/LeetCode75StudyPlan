@@ -2,12 +2,12 @@
 using static LeetCode75StudyPlan.Trees.TreeNodeExtensions;
 internal class BinaryTreeLevelOrderTraversal : Solution<TreeNode, IList<IList<int>>>
 {
-
     public IList<IList<int>> LevelOrder(TreeNode root)
     {
         var stack = new Stack<(TreeNode node, int level)>();
-        var levels = new List<IList<int>>();
         stack.Push((root, 0));
+        
+        var levels = new List<IList<int>>();
         while (stack.Count > 0)
         {
             var (node, level) = stack.Pop();
@@ -25,16 +25,7 @@ internal class BinaryTreeLevelOrderTraversal : Solution<TreeNode, IList<IList<in
         }
         return levels;
     }
-
-    protected override bool IsEqual(IList<IList<int>> actual, IList<IList<int>> expected)
-    {
-        bool equal = actual.Count == expected.Count;
-        for (int i = 0; i < actual.Count && equal; i++)
-            equal = actual[i].SequenceEqual(expected[i]);        
-        return equal;
-    }
-    
-
+       
     protected override string Title => "102. Binary Tree Level Order Traversal";
 
     protected override IEnumerable<(TreeNode, IList<IList<int>>)> TestCases
@@ -43,9 +34,7 @@ internal class BinaryTreeLevelOrderTraversal : Solution<TreeNode, IList<IList<in
         {
             var c1 = Tree(3, 9, 20, null, null, 15, 7)!;
             yield return (c1, List(List(3), List(9, 20), List(15, 7)));
-
-            yield return (Tree(1)!, List(List(1)));
-            
+            yield return (Tree(1)!, List(List(1)));            
         }
     }
 

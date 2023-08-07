@@ -28,6 +28,13 @@ internal abstract class Solution<T, R> : ITestable
                     return false;
                 }
             }
+            else if(actual is IList<IList<int>> lla && actual is IList<IList<int>> llb)
+            {
+                bool equal = lla.Count == llb.Count;
+                for (int i = 0; i < lla.Count && equal; i++)
+                    equal = lla[i].SequenceEqual(llb[i]);
+                return equal;
+            }
             else
             {
                 return actual.Equals(expected);

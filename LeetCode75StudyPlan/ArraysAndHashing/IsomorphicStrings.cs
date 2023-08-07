@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeetCode75StudyPlan;
+namespace LeetCode75StudyPlan.ArraysAndHashing;
 static class IsomorphicStrings
 {
     public static bool Check(string s, string t)

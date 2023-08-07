@@ -7,6 +7,8 @@ using LeetCode75StudyPlan.Trees;
 Console.WriteLine("Running Tests... ");
 
 
-((ITestable)new BinaryTreeLevelOrderTraversal()).RunTests();
-((ITestable)new KthSmallestNumberInMultiplicationTable()).RunTests();
+
+((ITestable)new MedianOfTwoSortedArrays()).RunTests();
+
+
 
