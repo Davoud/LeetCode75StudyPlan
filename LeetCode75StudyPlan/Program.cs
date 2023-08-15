@@ -6,12 +6,13 @@ using LeetCode75StudyPlan.Trees;
 
 Console.WriteLine("Running Tests... ");
 
-
-//((ITestable)new CountGoodNodes()).RunTests();
-
-
-((ITestable)new BTreeCodec()).RunTests();
+// Debug to understand
 //((ITestable)new MedianOfTwoSortedArrays()).RunTests();
+
+((ITestable)new ValidateBST()).RunTests();
+
+
+
 
 
 

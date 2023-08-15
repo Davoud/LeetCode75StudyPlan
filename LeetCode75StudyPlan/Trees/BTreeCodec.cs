@@ -4,14 +4,19 @@ namespace LeetCode75StudyPlan.Trees;
 
 internal class BTreeCodec : ITestable
 {
+    const char OPEN = '[';
+    const char CLOSE = ']';
+    const char SEP = '`';
 
     public static string Serialize(TreeNode? root)
     {
-        if (root == null) return string.Empty;
+        if (root == null) 
+            return string.Empty;
 
-        if (root.left == null && root.right == null) return $"{root.val}";
+        if (root.left == null && root.right == null) 
+            return $"{root.val}";
 
-        return $"{root.val}({Serialize(root.left)},{Serialize(root.right)})";
+        return $"{root.val}{OPEN}{Serialize(root.left)}{SEP}{Serialize(root.right)}{CLOSE}";        
     }
 
 
@@ -25,18 +30,18 @@ internal class BTreeCodec : ITestable
     {
         if (input.IsEmpty) return null;
 
-        int indexOfOpen = input.IndexOf('(');
+        int indexOfOpen = input.IndexOf(OPEN);
 
         if (indexOfOpen > 0)
         {           
             var node = new TreeNode(int.Parse(input[..indexOfOpen]));
          
             var children = input[(indexOfOpen + 1)..^1];
-            int indexOfSep = IndexOfSeperator(children);
-
-            node.left = From(children[..indexOfSep]);
-            node.right = From(children[(indexOfSep + 1)..]);
-
+            if (IndexOfSeperator(children) is int i)
+            {
+                node.left = From(children[..i]);
+                node.right = From(children[(i + 1)..]);
+            }
             return node;
         }
         else
@@ -48,7 +53,7 @@ internal class BTreeCodec : ITestable
 
     private static TreeNode? BuildTreeFrom(ReadOnlySpan<char> input)
     {
-        Console.WriteLine("297. Serialize and Deserialize Binary Tree");
+        
         Console.WriteLine($"##\t{input}");
         if (input.IsEmpty) return null;
 
@@ -63,11 +68,11 @@ internal class BTreeCodec : ITestable
                 var node = new TreeNode(value);
                 var children = input[(indexOfOpen + 1)..^1];
 
-                int indexOfSep = IndexOfSeperator(children);
-
-                node.left = BuildTreeFrom(children[..indexOfSep]);
-                node.right = BuildTreeFrom(children[(indexOfSep + 1)..]);
-
+                if (IndexOfSeperator(children) is int i)
+                {
+                    node.left = BuildTreeFrom(children[..i]);
+                    node.right = BuildTreeFrom(children[(i + 1)..]);
+                }
                 return node;
             }
             else
@@ -90,7 +95,7 @@ internal class BTreeCodec : ITestable
 
     }
 
-    private static int IndexOfSeperator(ReadOnlySpan<char> input)
+    private static int? IndexOfSeperator(ReadOnlySpan<char> input)
     {
         int index = 0;
         int p = 0;
@@ -98,29 +103,31 @@ internal class BTreeCodec : ITestable
         {
             switch (item)
             {
-                case ',': if (p == 0) return index;
+                case SEP: if (p == 0) return index;
                     break;
-                case '(': p++;
+                case OPEN: p++;
                     break;
-                case ')': p--;
+                case CLOSE: p--;
                     break;
             }
             index++;
         }
 
-        if (index >= input.Length) return -1;
+        if (index >= input.Length) return null;
         return index;
     }
 
     void ITestable.RunTests()
     {
+        Console.WriteLine("297. Serialize and Deserialize Binary Tree");
         var testCases = List
         (
             (Tree(1, 2, 3, null, null, 4, 5), Tree(1, 2, 3, null, null, 4, 5)), // 1(2,3(4,5))
             (Tree(3, 1, 4, 3, null, 1, 5), Tree(3, 1, 4, 3, null, 1, 5)),       // 3(1(3,),4(1,5)) 
             (Tree(1), Tree(1)),
             (Tree(1, 2), Tree(1, 2)),
-            (Tree(2, null, 3), Tree(2, null, 3))
+            (Tree(2, null, 3), Tree(2, null, 3)),
+            (Tree(1, 2, 3, 4, 5, 67, 8, 9, 10, 11, 12, 13, 15), Tree(1, 2, 3, 4, 5, 67, 8, 9, 10, 11, 12, 13, 15))
         );
 
         foreach ((TreeNode? input, TreeNode? output) in testCases)
