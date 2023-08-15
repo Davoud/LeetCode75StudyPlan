@@ -1,4 +1,4 @@
-﻿using LeetCode75StudyPlan.BinarySearch;
+﻿
 using System.Collections;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -172,19 +172,27 @@ public static class Helper
 
         public static explicit operator T[](ArrayGenerator<T> g) => g.Empty;
 
-        public static class Math
+       
+    }
+
+    public static class Mathematics
+    {
+        public static int Gcd(int p, int q)
         {
-            public static int Gcd(int p, int q)
+            if (p < q) return Gcd(q, p);
+            int r = p % q;
+            while (r > 0)
             {
-                if (p < q) return Gcd(q, p);
-                int r = p % q;
-                while (r > 0)
-                {
-                    (p, q) = (q, r);
-                    r = p % q;
-                }
-                return q;
+                (p, q) = (q, r);
+                r = p % q;
             }
+            return q;
+        }
+
+        public static double Median(int[] n)
+        {
+            int h = n.Length / 2;
+            return h * 2 == n.Length ? (n[h] + n[h - 1]) / 2.0 : n[h];
         }
     }
 

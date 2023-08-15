@@ -2,7 +2,7 @@
 using static LeetCode75StudyPlan.Trees.TreeNodeExtensions;
 internal class BinaryTreeLevelOrderTraversal : Solution<TreeNode, IList<IList<int>>>
 {
-    public IList<IList<int>> LevelOrder(TreeNode root)
+    public static IList<IList<int>> LevelOrder(TreeNode root)
     {
         var stack = new Stack<(TreeNode node, int level)>();
         stack.Push((root, 0));

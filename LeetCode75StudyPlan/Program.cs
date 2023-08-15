@@ -7,8 +7,11 @@ using LeetCode75StudyPlan.Trees;
 Console.WriteLine("Running Tests... ");
 
 
+//((ITestable)new CountGoodNodes()).RunTests();
 
-((ITestable)new MedianOfTwoSortedArrays()).RunTests();
+
+((ITestable)new BTreeCodec()).RunTests();
+//((ITestable)new MedianOfTwoSortedArrays()).RunTests();
 
 
 

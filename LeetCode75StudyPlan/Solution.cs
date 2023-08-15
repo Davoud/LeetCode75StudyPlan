@@ -13,7 +13,22 @@ internal abstract class Solution<T, R> : ITestable
     {                
         if(actual is not null && expected is not null)
         {
-            if (expected is IEnumerable<R> b)
+            if (expected is IEnumerable<int> lb)
+            {
+                if(actual is ISet<int> intSet)
+                {
+                    return intSet.SetEquals(lb);
+                }
+                else if(actual is IEnumerable<int> la)
+                {
+                    return la.SequenceEqual(lb);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (expected is IEnumerable<R> b)
             {
                 if (actual is ISet<R> set)
                 {
@@ -27,7 +42,7 @@ internal abstract class Solution<T, R> : ITestable
                 {
                     return false;
                 }
-            }
+            }          
             else if(actual is IList<IList<int>> lla && actual is IList<IList<int>> llb)
             {
                 bool equal = lla.Count == llb.Count;
