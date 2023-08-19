@@ -53,8 +53,8 @@ public static class TreeNodeExtensions
         {
             var node = stack.Pop();
             yield return node.val;
-            if (node.left is TreeNode left) stack.Push(left);            
             if (node.right is TreeNode right) stack.Push(right);            
+            if (node.left is TreeNode left) stack.Push(left);            
         }
     }
 
