@@ -11,10 +11,10 @@ public interface IPriorityQueue<T> where T : IComparable<T>
     T Peak { get; }
 }
 
-internal class MinPQueue : IPriorityQueue<int>, IEnumerable<int>
+public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
 {
-    private readonly List<int> _heap;
-    public MinPQueue(params int[] init)
+    protected readonly List<int> _heap;
+    public PriorityQueue(params int[] init)
     {
         _heap = new List<int>(init.Length);
         if (init.Length > 1)
@@ -50,7 +50,9 @@ internal class MinPQueue : IPriorityQueue<int>, IEnumerable<int>
         {
             throw new InvalidOperationException("Empty Queue!");
         }
-    }    
+    }
+
+    protected abstract bool WrongPriority(Index a, Index b);// => _heap[a] > _heap[b];
 
     private static Index? ParentOf(Index index)
     {
@@ -66,7 +68,7 @@ internal class MinPQueue : IPriorityQueue<int>, IEnumerable<int>
     
     private void BobbleUp(Index current)
     {
-        if (ParentOf(current) is Index parent && _heap[parent] > _heap[current])
+        if (ParentOf(current) is Index parent && WrongPriority(parent, current))
         {
             (_heap[parent], _heap[current]) = (_heap[current], _heap[parent]);
             BobbleUp(parent);
@@ -79,25 +81,12 @@ internal class MinPQueue : IPriorityQueue<int>, IEnumerable<int>
         {
             Index minIndex = current;
 
-            if (child.Value < _heap.Count && _heap[minIndex] > _heap[child])
-            {
+            if (child.Value < _heap.Count && WrongPriority(minIndex, child))
                 minIndex = child;
-            }
-
-            if (child.Value + 1 < _heap.Count && _heap[minIndex] > _heap[child.Value + 1])
-            {
-                minIndex = child.Value + 1;
-            }
-
-            //for (int i = 0; i < 2; i++)
-            //{
-            //    if (child.Value + i < _heap.Count)
-            //    {
-            //        if (_heap[minIndex] > _heap[child.Value + i])
-            //            minIndex = child.Value + i;
-            //    }
-            //}
             
+            if (child.Value + 1 < _heap.Count && WrongPriority(minIndex, child.Value + 1))
+                minIndex = child.Value + 1;
+                                   
             if (minIndex.Value != current.Value)
             {
                 (_heap[current], _heap[minIndex]) = (_heap[minIndex], _heap[current]);
@@ -108,27 +97,46 @@ internal class MinPQueue : IPriorityQueue<int>, IEnumerable<int>
 
     public IEnumerator<int> GetEnumerator() => _heap.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
+}
+
+public class MinPq : PriorityQueue
+{
+    public MinPq(params int[] init) : base(init) { }
+    protected override bool WrongPriority(Index a, Index b) => _heap[a] > _heap[b];
+}
+
+public class MaxPq : PriorityQueue
+{
+    public MaxPq(params int[] init) : base(init) { }
+    protected override bool WrongPriority(Index a, Index b) => _heap[a] < _heap[b];
 }
 
 
-class MinQueueTest : ITestable 
+class MinPqTests : ITestable 
 {
     public void RunTests()
     {
-        Console.WriteLine("-----");
+        
+        Console.WriteLine("MinPq Senario 1");
+        TestCase2(new MaxPq());
+        
+        Console.WriteLine("MinPq Senario 1");
         TestCase1();
-        Console.WriteLine("-----");
-        TestCase2();
-        Console.WriteLine("-----");
-        TestCase3();
-    }
+        Console.WriteLine("MinPq Senario 2");
+        TestCase2(new MinPq());
+        Console.WriteLine("MinPq Senario 3");
+        TestCase3();        
 
+    }
+   
     private void TestCase3()
     {        
         var input = Arr(1..100);
         var expecteds = Arr(1..100);
         Shuffle(input);
-        var pq = new MinPQueue(input);
+        var pq = new MinPq(input);
+
         for (int i = 0; i < expecteds.Length; i++)
         {
             int actual = pq.Dequeue();
@@ -137,14 +145,18 @@ class MinQueueTest : ITestable
         }
     }
 
-    private void TestCase2()
+    private void TestCase2(PriorityQueue pq)
     {
         var input = Arr(1..100);
         var expecteds = Arr(1..100);                
         Shuffle(input);
 
+        if(pq is MaxPq)
+        {
+            Array.Reverse(expecteds);
+        }
 
-        var pq = new MinPQueue();
+        
         foreach(int item in input)
         {
             pq.Enqueue(item);
@@ -172,7 +184,7 @@ class MinQueueTest : ITestable
 
     private static void TestCase1()
     {
-        var pq = new MinPQueue(@int[4, 5, 8, 2]);
+        var pq = new MinPq(@int[4, 5, 8, 2]);
         pq.Dump();
         int[] expecteds = @int[2, 4, 5, 8];
         for (int i = 0; i < expecteds.Length; i++)
@@ -183,3 +195,4 @@ class MinQueueTest : ITestable
         }
     }
 }
+

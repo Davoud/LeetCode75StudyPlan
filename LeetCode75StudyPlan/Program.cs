@@ -8,7 +8,7 @@ using static LeetCode75StudyPlan.Tries.TrieHelpers;
 
 //((ITestable)new WordSearchII()).RunTests();
 //Console.WriteLine(" - - - - - - - - - - - - - - - - - -");
-//((ITestable)new KthLargest(3, @int[4, 5, 8, 2])).RunTests();
+((ITestable)new KthLargest(3, @int[4, 5, 8, 2])).RunTests();
 
 
-new MinQueueTest().RunTests();
+//new MinPqTests().RunTests();
