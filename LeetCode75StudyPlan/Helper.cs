@@ -7,6 +7,7 @@ namespace System;
 public static class Helper
 {
     public readonly static ArrayGenerator<int> @int = new();
+    public readonly static ArrayGenerator<char> @char = new();
     public readonly static LinkListGenerator lx = new();
     public static void WriteLine(this string value) => Console.WriteLine(value);
 

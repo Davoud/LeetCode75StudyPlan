@@ -1,22 +1,14 @@
 ﻿using LeetCode75StudyPlan;
-using LeetCode75StudyPlan.BinarySearch;
-using LeetCode75StudyPlan.LinkLists;
-using LeetCode75StudyPlan.Stack;
-using LeetCode75StudyPlan.Trees;
-using System.Xml.Serialization;
-
-Console.WriteLine("Running Tests... ");
-
-// Debug to understand
-//((ITestable)new MedianOfTwoSortedArrays()).RunTests();
+using LeetCode75StudyPlan.Heaps;
+using LeetCode75StudyPlan.Tries;
+using static LeetCode75StudyPlan.Tries.TrieHelpers;
 
 
 
 
-((ITestable)new BTreeMaxPathSum()).RunTests();
+//((ITestable)new WordSearchII()).RunTests();
+//Console.WriteLine(" - - - - - - - - - - - - - - - - - -");
+//((ITestable)new KthLargest(3, @int[4, 5, 8, 2])).RunTests();
 
 
-
-
-
-
+new MinQueueTest().RunTests();
