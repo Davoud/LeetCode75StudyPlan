@@ -8,26 +8,21 @@ public interface IPriorityQueue<T> where T : IComparable<T>
     int Length { get; }
     void Enqueue(T value);
     T Dequeue();
-    T Peak { get; }
+    T Peek { get; }
 }
 
 public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
 {
     protected readonly List<int> _heap;
-    public PriorityQueue(params int[] init)
+    protected PriorityQueue(params int[] init)
     {
-        _heap = new List<int>(init.Length);
-        if (init.Length > 1)
-        {
-            _heap.AddRange(init);
-            for (int i = _heap.Count / 2; i >= 0; i--)
-                BobbleDown(i);
-        }
+        _heap = init.ToList();
+        for (int i = _heap.Count / 2; i >= 0; i--) BobbleDown(i);
     }
 
     public int Length => _heap.Count;
 
-    public int Peak => _heap[0];
+    public int Peek => _heap[0];
 
     public void Enqueue(int value)
     {
@@ -45,6 +40,21 @@ public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
             _heap.RemoveAt(last.Value);
             BobbleDown(0);
             return min;
+        }
+        else
+        {
+            throw new InvalidOperationException("Empty Queue!");
+        }
+    }
+
+    public int Pop()
+    {
+        int last = _heap.Count - 1;
+        if (_heap.Count > 0)
+        {
+            int value = _heap[last];
+            _heap.RemoveAt(last);          
+            return value;
         }
         else
         {

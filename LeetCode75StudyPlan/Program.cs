@@ -1,14 +1,10 @@
 ﻿using LeetCode75StudyPlan;
 using LeetCode75StudyPlan.Heaps;
 using LeetCode75StudyPlan.Tries;
-using static LeetCode75StudyPlan.Tries.TrieHelpers;
+using System;
+
+var nums = @int[1, 4, 4, 7, 10, -1] ;
+var pq = new PriorityQueue<int, int>(nums.Select(i => (i, i)));
 
 
-
-
-//((ITestable)new WordSearchII()).RunTests();
-//Console.WriteLine(" - - - - - - - - - - - - - - - - - -");
-((ITestable)new KthLargest(3, @int[4, 5, 8, 2])).RunTests();
-
-
-//new MinPqTests().RunTests();
+//((ITestable)new KthLargestElementArray()).RunTests();
