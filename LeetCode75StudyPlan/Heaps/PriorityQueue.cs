@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-
+using System.Xml;
 
 namespace LeetCode75StudyPlan.Heaps;
 
@@ -45,6 +45,12 @@ public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
         {
             throw new InvalidOperationException("Empty Queue!");
         }
+    }
+
+    public IEnumerable<int> Dequeue(int times)
+    {
+        while (--times > 0 && _heap.Count > 0)
+            yield return Dequeue();
     }
 
     public int Pop()

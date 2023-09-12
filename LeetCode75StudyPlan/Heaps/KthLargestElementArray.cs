@@ -6,11 +6,8 @@ internal class KthLargestElementArray : Solution<(int[] nums, int k), int>
     
     public int FindKthLargest(int[] nums, int k)
     {
-        var pq = new MaxPq(nums);        
-        
-        while (--k > 0)
-            pq.Dequeue();
-
+        var pq = new MaxPq(nums);       
+        pq.Dequeue(k).Count();        
         return pq.Peek;
     }
 
