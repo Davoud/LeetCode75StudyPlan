@@ -1,20 +1,18 @@
-﻿namespace LeetCode75StudyPlan.Heaps;
+﻿using System.Dynamic;
+
+namespace LeetCode75StudyPlan.Heaps;
 
 class Twitter
 {
     class Tw
-    {       
+    {
+        public Tw() => Followees.Add(this);
         public readonly List<(int id, long time)> Posts = new();
         public readonly HashSet<Tw> Followees = new();
     }
 
-
-    private readonly Dictionary<int, Tw> db;
-    private long time = long.MaxValue;
-    public Twitter()
-    {
-        db = new Dictionary<int, Tw>();
-    }
+    private readonly Dictionary<int, Tw> db = new();
+    private long time = long.MaxValue;    
 
     public void PostTweet(int userId, int tweetId)
     {
@@ -23,7 +21,6 @@ class Twitter
             tw = new();
             db[userId] = tw;
         }
-
         tw.Posts.Add((tweetId, --time));
     }
 
@@ -34,15 +31,16 @@ class Twitter
         if (!db.TryGetValue(userId, out Tw? tw)) return list;
         
         var pq = new PriorityQueue<int, long>();
-
-        foreach ((int id, long time) in tw.Posts)
-            pq.Enqueue(id, time);
-
+        
         foreach (Tw followee in tw.Followees)
+        {
             foreach ((int id, long time) in followee.Posts)
-                pq.Enqueue(id, time);
+            {
+                pq.Enqueue(id, time);               
+            }
+        }
 
-        while (pq.Count > 0)
+        while (pq.Count > 0 && list.Count < 10)
             list.Add(pq.Dequeue());
 
         return list;
@@ -55,7 +53,7 @@ class Twitter
             follower = new Tw();
             db[followerId] = follower;
         }
-
+        
         if (!db.TryGetValue(followeeId, out Tw? followee))
         {
             followee = new Tw();
@@ -68,9 +66,7 @@ class Twitter
     public void Unfollow(int followerId, int followeeId)
     {
         if (db.TryGetValue(followerId, out Tw? follower) && db.TryGetValue(followeeId, out Tw? followee))
-        {
             follower.Followees.Remove(followee);
-        }
     }   
 }
 
