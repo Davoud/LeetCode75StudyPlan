@@ -8,6 +8,9 @@ public interface IPriorityQueue<T> where T : IComparable<T>
     int Length { get; }
     void Enqueue(T value);
     T Dequeue();
+
+    T this[T value] { get; } // EnqueueDequeue
+
     T Peek { get; }
 }
 
@@ -33,7 +36,7 @@ public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
     public int Dequeue()
     {
         Index last = _heap.Count - 1;
-        if(last.Value >= 0)
+        if (last.Value >= 0)
         {
             int min = _heap[0];
             _heap[0] = _heap[last];
@@ -59,12 +62,25 @@ public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
         if (_heap.Count > 0)
         {
             int value = _heap[last];
-            _heap.RemoveAt(last);          
+            _heap.RemoveAt(last);
             return value;
         }
         else
         {
             throw new InvalidOperationException("Empty Queue!");
+        }
+    }
+    /// <summary>
+    /// Enqueue value and Dequeue afterwards
+    /// </summary>
+    /// <param name="value">value to enqueue</param>
+    /// <returns>Dequeued value</returns>
+    public int this[int value]
+    {
+        get
+        {
+            Enqueue(value);
+            return Dequeue();
         }
     }
 
@@ -81,7 +97,7 @@ public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
         int c = index.Value * 2;
         return c < _heap.Count ? (Index?)c : null;
     }
-    
+
     private void BobbleUp(Index current)
     {
         if (ParentOf(current) is Index parent && WrongPriority(parent, current))
@@ -99,10 +115,10 @@ public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
 
             if (child.Value < _heap.Count && WrongPriority(minIndex, child))
                 minIndex = child;
-            
+
             if (child.Value + 1 < _heap.Count && WrongPriority(minIndex, child.Value + 1))
                 minIndex = child.Value + 1;
-                                   
+
             if (minIndex.Value != current.Value)
             {
                 (_heap[current], _heap[minIndex]) = (_heap[minIndex], _heap[current]);
@@ -113,7 +129,7 @@ public abstract class PriorityQueue : IPriorityQueue<int>, IEnumerable<int>
 
     public IEnumerator<int> GetEnumerator() => _heap.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    
+
 }
 
 public class MinPq : PriorityQueue
@@ -129,25 +145,25 @@ public class MaxPq : PriorityQueue
 }
 
 
-class MinPqTests : ITestable 
+class MinPqTests : ITestable
 {
     public void RunTests()
     {
-        
+
         Console.WriteLine("MinPq Senario 1");
         TestCase2(new MaxPq());
-        
+
         Console.WriteLine("MinPq Senario 1");
         TestCase1();
         Console.WriteLine("MinPq Senario 2");
         TestCase2(new MinPq());
         Console.WriteLine("MinPq Senario 3");
-        TestCase3();        
+        TestCase3();
 
     }
-   
+
     private void TestCase3()
-    {        
+    {
         var input = Arr(1..100);
         var expecteds = Arr(1..100);
         Shuffle(input);
@@ -164,16 +180,16 @@ class MinPqTests : ITestable
     private void TestCase2(PriorityQueue pq)
     {
         var input = Arr(1..100);
-        var expecteds = Arr(1..100);                
+        var expecteds = Arr(1..100);
         Shuffle(input);
 
-        if(pq is MaxPq)
+        if (pq is MaxPq)
         {
             Array.Reverse(expecteds);
         }
 
-        
-        foreach(int item in input)
+
+        foreach (int item in input)
         {
             pq.Enqueue(item);
         }
@@ -189,13 +205,13 @@ class MinPqTests : ITestable
     }
 
     private static void Shuffle(int[] items)
-    {        
+    {
         Random r = new();
-        for(int i = 0; i < items.Length; i++)
+        for (int i = 0; i < items.Length; i++)
         {
             int next = r.Next(0, items.Length - 1);
             (items[i], items[next]) = (items[next], items[i]);
-        }        
+        }
     }
 
     private static void TestCase1()

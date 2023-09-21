@@ -24,6 +24,7 @@ public static class Helper
     public static string AsStr<T>(this T[] array) => "[" + string.Join(", ", array) + "]";
 
     public static string AsStr<T>(this IEnumerable<T> source) => "[" + string.Join(", ", source) + "]";
+    public static string AsStr<T>(this IEnumerable<T> source, string open, string close) => open + string.Join(", ", source) + close;
     public static void Dump<T>(this IEnumerable<T> source)
         => Console.WriteLine(string.Join(", ", source));
 
