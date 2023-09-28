@@ -10,14 +10,14 @@ namespace LeetCode75StudyPlan.Backtracking;
 class Subset : ITestable
 {    
     private int[] nums = Array.Empty<int>();
-    private bool[] partialSolution = Array.Empty<bool>();
+    private bool[] a = Array.Empty<bool>();
     
     // backtracking 
     public IList<IList<int>> SubsetsByBacktracking(int[] nums)
     {
         this.nums = nums;
         var res = new List<IList<int>>();
-        partialSolution = new bool[nums.Length];
+        a = new bool[nums.Length];
         Backtrack(0, res);
         return res;
     }
@@ -46,20 +46,20 @@ class Subset : ITestable
 
     protected void Backtrack(int k, List<IList<int>> res)
     {       
-        if (k == partialSolution.Length)
+        if (k == a.Length)
         {
             List<int> subset = new();
             for (int i = 0; i < k; i++)
-                if (partialSolution[i]) subset.Add(nums[i]);
+                if (a[i]) subset.Add(nums[i]);
             res.Add(subset);            
         }
         else
         {           
-            partialSolution[k] = false;
+            a[k] = false;
             Backtrack(k + 1, res);
-
-            partialSolution[k] = true;
-            Backtrack(k + 1, res);
+           
+            a[k] = true;
+            Backtrack(k + 1, res);            
         }
     }  
 

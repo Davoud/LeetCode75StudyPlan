@@ -43,13 +43,30 @@ internal abstract class Solution<T, R> : ITestable
                     return false;
                 }
             }          
-            else if(actual is IList<IList<int>> lla && actual is IList<IList<int>> llb)
+            else if(actual is IList<IList<int>> lla && expected is IList<IList<int>> llb)
             {
-                bool equal = lla.Count == llb.Count;
-                for (int i = 0; i < lla.Count && equal; i++)
-                    equal = lla[i].SequenceEqual(llb[i]);
-                return equal;
-            }
+                //bool equal = lla.Count == llb.Count;
+                //for (int i = 0; i < lla.Count && equal; i++)
+                //    equal = lla[i].SequenceEqual(llb[i]);
+                //return equal;
+
+                if (lla.Count == llb.Count)
+                {
+                    var set = llb.Select(i => i.ToHashSet()).ToHashSet();
+                    foreach (var item in lla)
+                    {
+                        if (!set.Any(i => i.SetEquals(item)))
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }            
             else
             {
                 return actual.Equals(expected);

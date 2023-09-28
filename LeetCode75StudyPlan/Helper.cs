@@ -1,5 +1,6 @@
 ﻿
 using System.Collections;
+using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -166,7 +167,7 @@ public static class Helper
     }
 
     public static ArrayGenerator<T> ArraysOf<T>() => new();
-
+    
     public class ArrayGenerator<T>
     {
         public T[] this[params T[] ints] => ints;
@@ -298,4 +299,31 @@ public static class Helper
             return new(values[0], AsLinkList(values[1..]));
         }
     }
+
+    public static IList<IList<int>> List2D(string input)
+    {
+        var list = new List<IList<int>>();        
+        foreach (string item in input.Replace(" ", "").Split(']'))
+        {
+            if (item.Length > 0)
+            {
+                string[] values = item.Replace(",[", "").Replace("[", "").Split(',');
+                if (values.Length > 0)
+                {
+                    var listOfNums = new List<int>();
+                    foreach (string value in values)
+                    {
+                        if (int.TryParse(value, out int num))
+                        {
+                            listOfNums.Add(num);
+                        }
+                    }
+                    list.Add(listOfNums);
+                }
+            }
+        }
+
+        return list;        
+    }
+    
 }
