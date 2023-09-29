@@ -6,56 +6,65 @@ namespace LeetCode75StudyPlan.Backtracking;
 
 internal class CombinationSumII : Solution<(int[] candidates, int target), IList<IList<int>>>
 {
-    
-    private int[] candidates = Array.Empty<int>();
 
-    private List<IList<int>> ans;
-    private List<int> subset;
+    private int[] nums = Array.Empty<int>();
+    private List<IList<int>> res;
     private int target;
 
     public IList<IList<int>> CombinationSum2(int[] candidates, int target)
     {
-
         Array.Sort(candidates);
-        ans = new List<IList<int>>();
+        this.nums = candidates;
+        res = new List<IList<int>>();
         this.target = target;
-        if (candidates[0] > target)
-        {
-            return ans;
-        }
-
-        
-
-        Backtrack(candidates, ImmutableList<int>.Empty, 0, 0);
-        return ans;
+        if (candidates[0] > target) return res;       
+        Backtrack(new Stack<int>(), 0, 0);
+        return res;
     }
 
-    private void Backtrack(int[] candidates, ImmutableList<int> subset, int k, int sum)
+    private void Backtrack(Stack<int> subset, int k, int sum)
     {
-        if (k < candidates.Length)
+        var kth = nums[k++];
+        sum += kth;
+
+        if (sum == target)
+        {            
+            subset.Push(kth);
+            res.Add(subset.ToList());
+            subset.Pop();
+        }
+        else if (k < nums.Length && sum < target)
         {
-            sum += candidates[k];
-            if (sum <= target)
-            {
-                subset = subset.Add(candidates[k]);
-                if (sum == target)
-                {
-                    ans.Add(subset);
-                }
-                else
-                {
-                    Backtrack(candidates, subset, k + 1, sum);
+            subset.Push(kth);
+            Backtrack(subset, k, sum);
+            subset.Pop();
 
-                    subset = subset.RemoveAt(subset.Count - 1);
-                    sum -= candidates[k];
-
-                    while (k + 1 < candidates.Length && candidates[k] == candidates[k + 1]) k++;                    
-
-                    Backtrack(candidates, subset, k + 1, sum);
-                }
-            }
+            while (k < nums.Length - 1 && kth == nums[k]) k++;
+            Backtrack(subset, k, sum - kth);
         }
     }
+
+    private void Backtrack(ImmutableList<int> subset, int k, int sum)
+    {
+        var kth = nums[k++];
+        
+        sum += kth;
+
+        if (sum == target)
+        {
+            res.Add(subset.Add(kth));
+        }
+        else if (k < nums.Length && sum < target)
+        {
+            Backtrack(subset.Add(kth), k, sum);
+
+            while (k < nums.Length - 1 && kth == nums[k]) k++;
+
+            Backtrack(subset, k, sum - kth);
+        }
+    }
+
+    
 
     private void BackTrack(int k, int target, ImmutableList<int> path, IList<IList<int>> res)
     {
@@ -64,15 +73,15 @@ internal class CombinationSumII : Solution<(int[] candidates, int target), IList
         {
             res.Add(path);
         }
-        else if(target > 0)
+        else if (target > 0)
         {
-            for (int i = k; i < candidates.Length; i++)
+            for (int i = k; i < nums.Length; i++)
             {
-                int c = candidates[i];               
-                if (i > k && c != candidates[i - 1])
-                    continue;                
-             
-                BackTrack(k + 1, target - c, path.Add(c), res);                          
+                int c = nums[i];
+                if (i > k && c != nums[i - 1])
+                    continue;
+
+                BackTrack(k + 1, target - c, path.Add(c), res);
             }
         }
     }
@@ -85,22 +94,22 @@ internal class CombinationSumII : Solution<(int[] candidates, int target), IList
         }
         else if (target > 0)
         {
-            for (int i = k; i < candidates.Length; i++)
+            for (int i = k; i < nums.Length; i++)
             {
-                if (i <= k || candidates[i] != candidates[i - 1])
+                if (i <= k || nums[i] != nums[i - 1])
                 {
-                    a[k] = candidates[i];
-                    BackTrack(k + 1, target - candidates[i], a, res);                    
+                    a[k] = nums[i];
+                    BackTrack(k + 1, target - nums[i], a, res);
                 }
             }
         }
     }
 
-   
 
-    protected override IList<IList<int>> Solve((int[] candidates, int target) input) 
+
+    protected override IList<IList<int>> Solve((int[] candidates, int target) input)
         => CombinationSum2(input.candidates, input.target);
-    
+
 
     protected override string Title => "40. Combination Sum II";
 
@@ -108,6 +117,7 @@ internal class CombinationSumII : Solution<(int[] candidates, int target), IList
     {
         get
         {
+            yield return ((@int[1, 1], 2), List2D("[1,1]"));
             yield return ((@int[2, 5, 2, 1, 2], 5), List2D("[1,2,2],[5]"));
             yield return ((@int[10, 1, 2, 7, 6, 1, 5], 8), List2D("[1,1,6],[1,2,5],[1,7],[2,6]"));
         }
