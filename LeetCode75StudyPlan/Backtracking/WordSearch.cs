@@ -4,8 +4,7 @@ using System.Windows.Markup;
 namespace LeetCode75StudyPlan.Backtracking;
 
 internal class WordSearch : Solution<(char[][] board, string word), bool>
-{
-        
+{        
     private char[][] board;
     private int N;
     private int M;
@@ -37,34 +36,37 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
             return true;
         }
         else 
-        {
-            List<(int, int)> adj = new();
+        {            
             char w = word[k];
             
             (int x, int y) = (i - 1, j);
-            if (x >= 0 && w == board[x][y])
-                adj.Add((x, y));
-
+            if (x >= 0 && w == board[x][y] && visited.Add((x,y))) 
+            {
+                if (BackTrack(x, y, k + 1, word, visited)) return true;
+                visited.Remove((x,y));
+            }
+                
             (x, y) = (i, j - 1);
-            if (y >= 0 && w == board[x][y])
-                adj.Add((x, y));
-
+            if (y >= 0 && w == board[x][y] && visited.Add((x, y))) 
+            {
+                if (BackTrack(x, y, k + 1, word, visited)) return true;
+                visited.Remove((x, y));
+            }
+                
             (x, y) = (i + 1, j);
-            if (x < N && w == board[x][y])
-                adj.Add((x, y));
+            if (x < N && w == board[x][y] && visited.Add((x, y)))
+            {
+                if (BackTrack(x, y, k + 1, word, visited)) return true;
+                visited.Remove((x, y));
+            }
 
             (x, y) = (i, j + 1);
-            if (y < M && w == board[x][y])
-                adj.Add((x, y));
-
-            foreach ((int x, int y) cell in adj)
+            if (y < M && w == board[x][y] && visited.Add((x, y)))
             {
-                if (visited.Add(cell))
-                {
-                    if (BackTrack(cell.x, cell.y, k + 1, word, visited)) return true;
-                    visited.Remove(cell);
-                }
+                if (BackTrack(x, y, k + 1, word, visited)) return true;
+                visited.Remove((x, y));
             }
+            
             return false;
         }        
     }
