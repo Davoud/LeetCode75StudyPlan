@@ -1,4 +1,5 @@
 ﻿
+using System.Collections;
 using System.Windows.Markup;
 
 namespace LeetCode75StudyPlan.Backtracking;
@@ -9,6 +10,7 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
     private int N;
     private int M;
     private string word;
+    private BitArray path;
     public bool Exist(char[][] board, string word)
     {        
         this.board = board;
@@ -16,23 +18,24 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
         M = board[0].Length;
         this.word = word;
         char w = word[0];
+        this.path = new BitArray(N * M);
 
-        for(int i = 0; i < N; i++) 
+        for (int i = 0; i < N; i++) 
         {
             for (int j = 0; j < M; j++)
             {                
                 if (board[i][j] == w)                     
-                {                    
-                    var visited = new bool[N, M];
-                    visited[i,j]= true;
-                    if (BackTrack(i, j, 1, visited)) return true;
+                {
+                    path.SetAll(false);
+                    path.Set((i * M) + j, true);
+                    if (BackTrack(i, j, 1)) return true;
                 }
             }
         }
         return false;
     }
 
-    private bool BackTrack(int i, int j, int k, bool[,] visited)
+    private bool BackTrack(int i, int j, int k)
     {
         if(k == word.Length)
         {
@@ -40,38 +43,39 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
         }
         else 
         {            
-            char w = word[k];
+            char w = word[k++];
+            int z;
             
-            (int x, int y) = (i - 1, j);
-            if (x >= 0 && w == board[x][y] && !visited[x,y]) 
-            {
-                visited[x,y] = true;
-                if (BackTrack(x, y, k + 1, visited)) return true;
-                visited[x,y] = false;
+            int x = i - 1;
+            if (x >= 0 && w == board[x][j] && !path.Get(z = (x * M) + j)) 
+            {                
+                path.Set(z, true);
+                if (BackTrack(x, j, k)) return true;
+                path.Set(z, false);
             }
                 
-            (x, y) = (i, j - 1);
-            if (y >= 0 && w == board[x][y] && !visited[x, y]) 
+            int y = j - 1;            
+            if (y >= 0 && w == board[i][y] && !path.Get(z = (i * M) + y)) 
             {
-                visited[x, y] = true;
-                if (BackTrack(x, y, k + 1, visited)) return true;
-                visited[x, y] = false;
+                path.Set(z, true);
+                if (BackTrack(i, y, k)) return true;
+                path.Set(z, false);
             }
                 
-            (x, y) = (i + 1, j);
-            if (x < N && w == board[x][y] && !visited[x, y])
+            x = i + 1;            
+            if (x < N && w == board[x][j] && !path.Get(z = (x * M) + j))
             {
-                visited[x, y] = true;
-                if (BackTrack(x, y, k + 1, visited)) return true;
-                visited[x, y] = false;
+                path.Set(z, true);
+                if (BackTrack(x, j, k)) return true;
+                path.Set(z, false);
             }
 
-            (x, y) = (i, j + 1);
-            if (y < M && w == board[x][y] && !visited[x, y])
+            y = j + 1;            
+            if (y < M && w == board[i][y] && !path.Get(z = (i * M) + y))
             {
-                visited[x, y] = true;
-                if (BackTrack(x, y, k + 1, visited)) return true;
-                visited[x, y] = false;
+                path.Set(z, true);
+                if (BackTrack(i, y, k)) return true;
+                path.Set(z, false);
             }
             
             return false;
