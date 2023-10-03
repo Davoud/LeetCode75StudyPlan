@@ -6,4 +6,3 @@ using System.Collections;
 using System.Numerics;
 
 ((ITestable)new WordSearch()).RunTests();
-

@@ -8,28 +8,31 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
     private char[][] board;
     private int N;
     private int M;
+    private string word;
     public bool Exist(char[][] board, string word)
     {        
         this.board = board;
         N = board.Length;
         M = board[0].Length;
-
+        this.word = word;
         char w = word[0];
+
         for(int i = 0; i < N; i++) 
         {
             for (int j = 0; j < M; j++)
             {                
                 if (board[i][j] == w)                     
-                {
-                    HashSet<(int, int)> visited = new() { (i, j) };
-                    if (BackTrack(i, j, 1, word, visited)) return true;
+                {                    
+                    var visited = new bool[N, M];
+                    visited[i,j]= true;
+                    if (BackTrack(i, j, 1, visited)) return true;
                 }
             }
         }
         return false;
     }
 
-    private bool BackTrack(int i, int j, int k, string word, ISet<(int x, int y)> visited)
+    private bool BackTrack(int i, int j, int k, bool[,] visited)
     {
         if(k == word.Length)
         {
@@ -40,31 +43,35 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
             char w = word[k];
             
             (int x, int y) = (i - 1, j);
-            if (x >= 0 && w == board[x][y] && visited.Add((x,y))) 
+            if (x >= 0 && w == board[x][y] && !visited[x,y]) 
             {
-                if (BackTrack(x, y, k + 1, word, visited)) return true;
-                visited.Remove((x,y));
+                visited[x,y] = true;
+                if (BackTrack(x, y, k + 1, visited)) return true;
+                visited[x,y] = false;
             }
                 
             (x, y) = (i, j - 1);
-            if (y >= 0 && w == board[x][y] && visited.Add((x, y))) 
+            if (y >= 0 && w == board[x][y] && !visited[x, y]) 
             {
-                if (BackTrack(x, y, k + 1, word, visited)) return true;
-                visited.Remove((x, y));
+                visited[x, y] = true;
+                if (BackTrack(x, y, k + 1, visited)) return true;
+                visited[x, y] = false;
             }
                 
             (x, y) = (i + 1, j);
-            if (x < N && w == board[x][y] && visited.Add((x, y)))
+            if (x < N && w == board[x][y] && !visited[x, y])
             {
-                if (BackTrack(x, y, k + 1, word, visited)) return true;
-                visited.Remove((x, y));
+                visited[x, y] = true;
+                if (BackTrack(x, y, k + 1, visited)) return true;
+                visited[x, y] = false;
             }
 
             (x, y) = (i, j + 1);
-            if (y < M && w == board[x][y] && visited.Add((x, y)))
+            if (y < M && w == board[x][y] && !visited[x, y])
             {
-                if (BackTrack(x, y, k + 1, word, visited)) return true;
-                visited.Remove((x, y));
+                visited[x, y] = true;
+                if (BackTrack(x, y, k + 1, visited)) return true;
+                visited[x, y] = false;
             }
             
             return false;
