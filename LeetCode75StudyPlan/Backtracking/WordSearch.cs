@@ -5,28 +5,32 @@ namespace LeetCode75StudyPlan.Backtracking;
 
 internal class WordSearch : Solution<(char[][] board, string word), bool>
 {
-    private record Cell(char? Value, int X, int Y);
-    private Func<Cell, IReadOnlyList<Cell>> adjOf;
-
+        
+    private char[][] board;
+    private int N;
+    private int M;
     public bool Exist(char[][] board, string word)
-    {
-        adjOf = AdjHelper(board);                
-        for(int i = 0; i < board.Length; i++) 
+    {        
+        this.board = board;
+        N = board.Length;
+        M = board[0].Length;
+
+        char w = word[0];
+        for(int i = 0; i < N; i++) 
         {
-            for (int j = 0; j < board[0].Length; j++)
-            {
-                Cell c = new(board[i][j], i, j);                
-                if (c.Value == word[0])                     
+            for (int j = 0; j < M; j++)
+            {                
+                if (board[i][j] == w)                     
                 {
-                    HashSet<Cell> visited = new() { c };
-                    if (BackTrack(c, 1, word, visited)) return true;
+                    HashSet<(int, int)> visited = new() { (i, j) };
+                    if (BackTrack(i, j, 1, word, visited)) return true;
                 }
             }
         }
         return false;
     }
 
-    private bool BackTrack(Cell c, int k, string word, ISet<Cell> visited)
+    private bool BackTrack(int i, int j, int k, string word, ISet<(int x, int y)> visited)
     {
         if(k == word.Length)
         {
@@ -34,46 +38,36 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
         }
         else 
         {
-            foreach(Cell cell in adjOf(c))
+            List<(int, int)> adj = new();
+            char w = word[k];
+            (int x, int y) = (i - 1, j);
+            if (x >= 0 && w == board[x][y])
+                adj.Add((x, y));
+
+            (x, y) = (i, j - 1);
+            if (y >= 0 && w == board[x][y])
+                adj.Add((x, y));
+
+            (x, y) = (i + 1, j);
+            if (x < N && w == board[x][y])
+                adj.Add((x, y));
+
+            (x, y) = (i, j + 1);
+            if (y < M && w == board[x][y])
+                adj.Add((x, y));
+
+            foreach ((int x, int y) cell in adj)
             {
-                if (cell.Value == word[k] && visited.Add(cell))
+                if (visited.Add(cell))
                 {
-                    if (BackTrack(cell, k + 1, word, visited)) return true;
-                    visited.Remove(cell);                    
+                    if (BackTrack(cell.x, cell.y, k + 1, word, visited)) return true;
+                    visited.Remove(cell);
                 }
             }
             return false;
         }        
     }
-
-    private Func<Cell, IReadOnlyList<Cell>> AdjHelper(char[][] board)
-    {
-        int N = board.Length;
-        int M = board[0].Length;
-        return (Cell c) =>
-        {
-            List<Cell> adj = new();
-            
-            (int x, int y) = (c.X - 1, c.Y);
-            if (x >= 0) 
-                adj.Add(new(board[x][y], x, y));
-
-            (x, y) = (c.X, c.Y - 1);
-            if (y >= 0) 
-                adj.Add(new(board[x][y], x, y));
-
-            (x, y) = (c.X + 1, c.Y);
-            if (x < N) 
-                adj.Add(new(board[x][y], x, y));
-
-            (x, y) = (c.X, c.Y + 1);
-            if (y < M) 
-                adj.Add(new(board[x][y], x, y));
-
-            return adj;
-        };
-    }
-
+   
     protected override string Title => "79. Word Search";
 
     protected override IEnumerable<((char[][] board, string word), bool)> TestCases
