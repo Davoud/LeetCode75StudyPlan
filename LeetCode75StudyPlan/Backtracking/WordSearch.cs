@@ -40,6 +40,7 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
         {
             List<(int, int)> adj = new();
             char w = word[k];
+            
             (int x, int y) = (i - 1, j);
             if (x >= 0 && w == board[x][y])
                 adj.Add((x, y));
