@@ -17,8 +17,9 @@ internal class CombinationSumII : Solution<(int[] candidates, int target), IList
         this.nums = candidates;
         res = new List<IList<int>>();
         this.target = target;
-        if (candidates[0] > target) return res;       
-        Backtrack(new Stack<int>(), 0, 0);
+        if (candidates[0] > target) return res;
+        Backtrack(ImmutableList.Create<int>(), 0, 0);
+        ////Backtrack(new Stack<int>(), 0, 0);
         return res;
     }
 
@@ -46,9 +47,9 @@ internal class CombinationSumII : Solution<(int[] candidates, int target), IList
 
     private void Backtrack(ImmutableList<int> subset, int k, int sum)
     {
-        var kth = nums[k++];
-        
+        var kth = nums[k];        
         sum += kth;
+        k++;
 
         if (sum == target)
         {
@@ -63,48 +64,6 @@ internal class CombinationSumII : Solution<(int[] candidates, int target), IList
             Backtrack(subset, k, sum - kth);
         }
     }
-
-    
-
-    private void BackTrack(int k, int target, ImmutableList<int> path, IList<IList<int>> res)
-    {
-        $"{k}: {path.Str()}".WriteLine();
-        if (target == 0)
-        {
-            res.Add(path);
-        }
-        else if (target > 0)
-        {
-            for (int i = k; i < nums.Length; i++)
-            {
-                int c = nums[i];
-                if (i > k && c != nums[i - 1])
-                    continue;
-
-                BackTrack(k + 1, target - c, path.Add(c), res);
-            }
-        }
-    }
-
-    private void BackTrack(int k, int target, int[] a, IList<IList<int>> res)
-    {
-        if (target == 0)
-        {
-            res.Add(a.Take(k).ToList());
-        }
-        else if (target > 0)
-        {
-            for (int i = k; i < nums.Length; i++)
-            {
-                if (i <= k || nums[i] != nums[i - 1])
-                {
-                    a[k] = nums[i];
-                    BackTrack(k + 1, target - nums[i], a, res);
-                }
-            }
-        }
-    }
-
 
 
     protected override IList<IList<int>> Solve((int[] candidates, int target) input)
