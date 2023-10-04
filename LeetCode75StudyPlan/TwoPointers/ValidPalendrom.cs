@@ -2,7 +2,7 @@
 
 namespace LeetCode75StudyPlan.TwoPointers;
 
-internal static class ValidPalendrom125
+internal static class ValidPalendrom
 {
     public static void RunTests()
     {
@@ -41,5 +41,24 @@ internal static class ValidPalendrom125
             j--;
         }
         return true;
+    }
+
+    public static bool IsPalindrome(ReadOnlySpan<char> s)
+    {
+        if (s.Length <= 1)
+        {
+            return true;
+        }
+        else
+        {
+            int i = 0, j = s.Length - 1;
+            while (i <= j && i < s.Length && j > 0)
+            {
+                if (s[i] != s[j]) return false;
+                i++;
+                j--;
+            }
+            return true;
+        }
     }
 }
