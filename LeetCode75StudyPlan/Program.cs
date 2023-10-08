@@ -5,6 +5,6 @@ using System;
 using System.Collections;
 using System.Numerics;
 
-"abc".Substring(0, 0).WriteLine();
 
-((ITestable)new PalindromePartitioning()).RunTests();
+
+((ITestable)new NQueens2()).RunTests();

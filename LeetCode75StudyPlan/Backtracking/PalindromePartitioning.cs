@@ -70,16 +70,15 @@ internal class PalindromePartitioning : Solution<string, IList<IList<string>>>
         {
             for (int end = start; end < len; end++)
             {
-                if (s[start] == s[end] && (end - start <= 2 || dp[At(start + 1, end - 1)]))
+                if (s[start] == s[end] && isPalindrome(start, end))
                 {
-                    dp[At(start, end)] = true;
-                    int rest = end + 1;
-                    Backtrack(s, rest, dp, new Node(s[start..rest], a));
+                    dp[(start * len) + end] = true;                    
+                    Backtrack(s, end + 1, dp, new Node(s[start..(end + 1)], a));
                 }
             }
         }
 
-        int At(int i, int j) => (i * len) + j;
+        bool isPalindrome(int f, int l) => l - f <= 2 || dp[((f + 1) * len) + l - 1];        
     }
 
     public record Node(string Value, Node? Next)
