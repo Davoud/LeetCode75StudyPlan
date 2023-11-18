@@ -4,5 +4,5 @@ using System;
 using System.Collections;
 using System.Numerics;
 
-((ITestable)new GraphDeepCopier()).RunTests();
+((ITestable)new SurroundedRegions()).RunTests();
 

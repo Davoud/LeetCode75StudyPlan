@@ -110,7 +110,16 @@ public static class GraphExtensions
                 }
             }
         }
+    }
 
+    public static Node GetOrAdd(this IDictionary<int, Node> keyValuePairs, int key)
+    {
+        if (!keyValuePairs.TryGetValue(key, out Node? node))
+        {
+            node = new(key);
+            keyValuePairs.Add(key, node);            
+        }
 
+        return node;
     }
 }

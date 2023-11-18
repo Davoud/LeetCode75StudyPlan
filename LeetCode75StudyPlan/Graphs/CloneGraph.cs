@@ -1,5 +1,6 @@
 ﻿namespace LeetCode75StudyPlan.Graphs;
 
+using LeetCode75StudyPlan.LinkLists;
 using System.Collections;
 using static LeetCode75StudyPlan.Graphs.GraphExtensions;
 internal class GraphDeepCopier : Solution<Node?, Node?>
@@ -35,7 +36,7 @@ internal class GraphDeepCopier : Solution<Node?, Node?>
             }
         }        
 
-        return copies[1];
+        return copies[node.val];
 
         Node CopyOf(int v)
         {
@@ -57,30 +58,19 @@ internal class GraphDeepCopier : Solution<Node?, Node?>
         var copied = new BitArray(100);
         Dfs(node);
 
-        return nodes[1];
+        return nodes[node.val];
 
         void Dfs(Node node)
         {
             int v = node.val;
             if (copied[v - 1]) return;
 
-            if(!nodes.TryGetValue(v, out Node? copy))
-            {
-                copy = new(v);
-                nodes.Add(v, copy);
-            }
-            
+            Node copy = nodes.GetOrAdd(v);                      
             copied[v - 1] = true;
 
             foreach (Node neighbor in node.neighbors)
             {
-                v = neighbor.val;
-                if (!nodes.TryGetValue(v, out Node? neighborCopy))
-                {
-                    neighborCopy = new(v);
-                    nodes.Add(v, neighborCopy);                    
-                }
-                copy.neighbors.Add(neighborCopy);
+                copy.neighbors.Add(nodes.GetOrAdd(neighbor.val));
                 Dfs(neighbor);
             }
         }

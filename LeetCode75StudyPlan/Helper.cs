@@ -325,5 +325,15 @@ public static class Helper
 
         return list;        
     }
-    
+
+
+    public static char[][] Char2D(params string[] input)
+    {
+        var chars = new char[input.Length][];
+        for(int i = 0; i < input.Length; i++)
+        {
+            chars[i] = input[i].ToCharArray();
+        }
+        return chars;
+    }
 }
