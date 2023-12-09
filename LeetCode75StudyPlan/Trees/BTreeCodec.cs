@@ -120,15 +120,15 @@ internal class BTreeCodec : ITestable
     void ITestable.RunTests()
     {
         Console.WriteLine("297. Serialize and Deserialize Binary Tree");
-        var testCases = List
-        (
+        IList<(TreeNode?, TreeNode?)> testCases = 
+        [        
             (Tree(1, 2, 3, null, null, 4, 5), Tree(1, 2, 3, null, null, 4, 5)), // 1(2,3(4,5))
             (Tree(3, 1, 4, 3, null, 1, 5), Tree(3, 1, 4, 3, null, 1, 5)),       // 3(1(3,),4(1,5)) 
             (Tree(1), Tree(1)),
             (Tree(1, 2), Tree(1, 2)),
             (Tree(2, null, 3), Tree(2, null, 3)),
             (Tree(1, 2, 3, 4, 5, 67, 8, 9, 10, 11, 12, 13, 15), Tree(1, 2, 3, 4, 5, 67, 8, 9, 10, 11, 12, 13, 15))
-        );
+        ];
 
         foreach ((TreeNode? input, TreeNode? output) in testCases)
         {

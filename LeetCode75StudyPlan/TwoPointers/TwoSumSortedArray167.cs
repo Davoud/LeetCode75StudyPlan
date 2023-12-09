@@ -60,9 +60,9 @@ internal static class TwoSumSortedArray167
 
         (int[], IList<IList<int>>)[] testCases =
         [
-            ([-1, 0, 1, 2, -1, -4], List(List(-1, -1, 2), List(-1, 0, 1))),
-            ([0, 1, 1], List<IList<int>>()),
-            ([0, 0, 0], List(List(0, 0, 0))),
+            ([-1, 0, 1, 2, -1, -4], [[-1, -1, 2], [-1, 0, 1]]),
+            ([0, 1, 1], [[]]),
+            ([0, 0, 0], [[0, 0, 0]]),
         ];
 
 

@@ -33,8 +33,8 @@ internal class BinaryTreeLevelOrderTraversal : Solution<TreeNode, IList<IList<in
         get
         {
             var c1 = Tree(3, 9, 20, null, null, 15, 7)!;
-            yield return (c1, List(List(3), List(9, 20), List(15, 7)));
-            yield return (Tree(1)!, List(List(1)));            
+            yield return (c1, [[3], [9, 20], [15, 7]]);
+            yield return (Tree(1)!, [[1]]);            
         }
     }
 

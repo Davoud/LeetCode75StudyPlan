@@ -2,17 +2,17 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Net.Http.Headers;
-
+using StringSet = System.Collections.Generic.HashSet<string>;
 namespace LeetCode75StudyPlan.Stack;
 
 public class GenerateParantheses : ITestable
 {
-    private HashSet<string> _result;
+    private StringSet _result;
     private int _n;
-    
-    public ISet<string> GenerateParenthesisRecursive(int n)
+
+    public StringSet GenerateParenthesisRecursive(int n)
     {
-        _result = new HashSet<string>();
+        _result = new StringSet();
         _n = n;
         Generate("", 0, 0);
         return _result;
@@ -35,10 +35,10 @@ public class GenerateParantheses : ITestable
 
     public record struct Term(string Value, int Left, int Right);
 
-    public ISet<string> GenerateParenthesisStack(int n)
+    public StringSet GenerateParenthesisStack(int n)
     {
         var s = new Stack<Term>();
-        var result = new HashSet<string>();
+        var result = new StringSet();
         s.Push(new("", 0, 0));
         
         while(s.Count > 0)
@@ -65,10 +65,10 @@ public class GenerateParantheses : ITestable
         return result;
     }
 
-    public ISet<string> GenerateParenthesisStack2(int n)
+    public StringSet GenerateParenthesisStack2(int n)
     {
         var s = new Stack<(string value, int left, int right)>();
-        var result = new HashSet<string>();
+        var result = new StringSet();
         s.Push(("", 0, 0));
 
         while (s.Count > 0)
@@ -92,16 +92,16 @@ public class GenerateParantheses : ITestable
     }
 
     void ITestable.RunTests()
-    {        
-        var cases = new[]
-        {
-            (1, Set("()")),
-            (2, Set("()()", "(())")),
-            (3, Set("((()))","(()())","(())()","()(())","()()()")),
-            (4, Set("(((())))","((()()))","((())())","((()))()","(()(()))",
+    {
+        (int, StringSet)[] cases =
+        [
+            (1, ["()"]),
+            (2, ["()()", "(())"]),
+            (3, ["((()))","(()())","(())()","()(())","()()()"]),
+            (4, ["(((())))","((()()))","((())())","((()))()","(()(()))",
                     "(()()())","(()())()","(())(())","(())()()","()((()))",
-                    "()(()())","()(())()","()()(())","()()()()"))
-        };
+                    "()(()())","()(())()","()()(())","()()()()"])
+        ];
 
         "22. Generate Parentheses (Recursive)".WriteLine();
         cases.RunTests(GenerateParenthesisRecursive, (a, b) => a.SetEquals(b));

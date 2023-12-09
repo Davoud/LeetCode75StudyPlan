@@ -45,9 +45,9 @@ internal class BinaryTreeRightSideView : Solution<TreeNode?, IList<int>>
     {
         get
         {
-            yield return (Tree(1, 2, 3, null, 5, null, 4), List(1, 3, 4));
-            yield return (Tree(1, null, 3), List(1, 3));
-            yield return (null, new List<int>());
+            yield return (Tree(1, 2, 3, null, 5, null, 4), [1, 3, 4]);
+            yield return (Tree(1, null, 3), [1, 3]);
+            yield return (null, []);
         }
     }
 

@@ -37,12 +37,7 @@ public static class Helper
         }
         return output;
     }
-
-    public static IEnumerable<T> Seq<T>(params T[] input) => input;
-    public static IList<T> List<T>(params T[] input) => input.ToList();
-    public static ISet<T> Set<T>(params T[] input) => input.ToHashSet();
-    public static ISet<T> Set<T>(IList<T> input) => input.ToHashSet();
-
+       
     public static void Dump<T>(this Span<T> input, char offset = 'a') where T: INumber<T>
     {
         for(int i = 0; i < input.Length; i++)
@@ -161,18 +156,7 @@ public static class Helper
         }
         return min;
     }
-
-    public static ArrayGenerator<T> ArraysOf<T>() => new();
-    
-    public class ArrayGenerator<T>
-    {
-        public T[] this[params T[] ints] => ints;
-        public T[] Empty => Array.Empty<T>();
-
-        public static explicit operator T[](ArrayGenerator<T> g) => g.Empty;
-
        
-    }
 
     public static class Mathematics
     {

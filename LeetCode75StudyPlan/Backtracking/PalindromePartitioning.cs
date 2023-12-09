@@ -167,10 +167,10 @@ internal class PalindromePartitioning : Solution<string, IList<IList<string>>>
     {
         get
         {
-            yield return ("AABB", List(List("A", "A", "B", "B"), List("A", "A", "BB"), List("AA", "B", "B"), List("AA", "BB")));
-            yield return ("abcde", List(List("a", "b", "c", "d", "e")));
-            yield return ("aab", List(List("a", "a", "b"), List("aa", "b")));
-            yield return ("a", List(List("a")));
+            yield return ("AABB",  [["A", "A", "B", "B"], ["A", "A", "BB"], ["AA", "B", "B"], ["AA", "BB"]]);
+            yield return ("abcde", [["a", "b", "c", "d", "e"]]);
+            yield return ("aab",   [["a", "a", "b"], ["aa", "b"]]);
+            yield return ("a",     [["a"]]);
         }
     }
 

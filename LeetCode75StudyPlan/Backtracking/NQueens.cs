@@ -1,14 +1,14 @@
 ﻿namespace LeetCode75StudyPlan.Backtracking;
-
-class NQueens2 : Solution<int, IList<IList<string>>>
+using Strings = IList<string>;
+class NQueens2 : Solution<int, IList<Strings>>
 {
     private const string DOTS = ".............";
     private const int PUT = 1;
     private const int REMOVE = -1;
-    readonly List<IList<string>> res = new();
+    readonly List<Strings> res = new();
     private int N;
     private int[,] board;
-    public IList<IList<string>> SolveNQueens(int n)
+    public IList<Strings> SolveNQueens(int n)
     {
         N = n;
         board = new int[n, n];
@@ -73,39 +73,33 @@ class NQueens2 : Solution<int, IList<IList<string>>>
 
     protected override string Title => "51.N-Queens";
 
-    protected override IEnumerable<(int, IList<IList<string>>)> TestCases
+    protected override IEnumerable<(int, IList<Strings>)> TestCases
     {
         get
         {
-            yield return (1, List(List("Q")));
-            var empty = new List<IList<string>>();
+            yield return (1, [["Q"]]);
+            IList<Strings> empty = [[]];
             yield return (2, empty);
             yield return (3, empty);
 
-            var q1 = List(".Q..",
-                          "...Q",
-                          "Q...",
-                          "..Q.");
+            
+            Strings q1 = [".Q..", "...Q", "Q...", "..Q."];
+            Strings q2 = ["..Q.", "Q...", "...Q", ".Q.."];
 
-            var q2 = List("..Q.",
-                          "Q...",
-                          "...Q",
-                          ".Q..");
-
-            yield return (4, List(q1, q2));
+            yield return (4, [q1, q2]);
 
 
-            var q5 = List(
-                List("Q....", "..Q..", "....Q", ".Q...", "...Q."),
-                List("Q....", "...Q.", ".Q...", "....Q", "..Q.."),
-                List(".Q...", "...Q.", "Q....", "..Q..", "....Q"),
-                List(".Q...", "....Q", "..Q..", "Q....", "...Q."),
-                List("..Q..", "Q....", "...Q.", ".Q...", "....Q"),
-                List("..Q..", "....Q", ".Q...", "...Q.", "Q...."),
-                List("...Q.", "Q....", "..Q..", "....Q", ".Q..."),
-                List("...Q.", ".Q...", "....Q", "..Q..", "Q...."),
-                List("....Q", ".Q...", "...Q.", "Q....", "..Q.."),
-                List("....Q", "..Q..", "Q....", "...Q.", ".Q..."));
+            IList<Strings> q5 = [
+                ["Q....", "..Q..", "....Q", ".Q...", "...Q."],
+                ["Q....", "...Q.", ".Q...", "....Q", "..Q.."],
+                [".Q...", "...Q.", "Q....", "..Q..", "....Q"],
+                [".Q...", "....Q", "..Q..", "Q....", "...Q."],
+                ["..Q..", "Q....", "...Q.", ".Q...", "....Q"],
+                ["..Q..", "....Q", ".Q...", "...Q.", "Q...."],
+                ["...Q.", "Q....", "..Q..", "....Q", ".Q..."],
+                ["...Q.", ".Q...", "....Q", "..Q..", "Q...."],
+                ["....Q", ".Q...", "...Q.", "Q....", "..Q.."],
+                ["....Q", "..Q..", "Q....", "...Q.", ".Q..."]];
 
             yield return (5, q5);
         }
@@ -116,7 +110,7 @@ class NQueens2 : Solution<int, IList<IList<string>>>
         return SolveNQueens(input);
     }
 
-    protected override bool IsEqual(IList<IList<string>> actual, IList<IList<string>> expected)
+    protected override bool IsEqual(IList<Strings> actual, IList<Strings> expected)
     {
         if (actual.Count == expected.Count)
         {
@@ -137,12 +131,12 @@ class NQueens2 : Solution<int, IList<IList<string>>>
     }
 }
 
-internal class NQueens : Solution<int, IList<IList<string>>>
+internal class NQueens : Solution<int, IList<Strings>>
 {
     private const string DOTS = ".............";    
-    readonly List<IList<string>> res = new();
+    readonly List<Strings> res = new();
 
-    public IList<IList<string>> SolveNQueens(int n)
+    public IList<Strings> SolveNQueens(int n)
     {
         res.Clear();
         BackTrack(0, new Chessboard(n), new int[n]);       
@@ -246,35 +240,29 @@ internal class NQueens : Solution<int, IList<IList<string>>>
     {
         get
         {
-            yield return (1, List(List("Q")));
-            var empty = new List<IList<string>>();
+            yield return (1, [["Q"]]);
+            IList<Strings> empty = [[]];
             yield return (2, empty);
             yield return (3, empty);
 
-            var q1 = List(".Q..",
-                          "...Q",
-                          "Q...",
-                          "..Q.");
 
-            var q2 = List("..Q.",
-                          "Q...",
-                          "...Q",
-                          ".Q..");
+            Strings q1 = [".Q..", "...Q", "Q...", "..Q."];
+            Strings q2 = ["..Q.", "Q...", "...Q", ".Q.."];
 
-            yield return (4, List(q1, q2));
+            yield return (4, [q1, q2]);
 
 
-            var q5 = List(
-                List("Q....", "..Q..", "....Q", ".Q...", "...Q."),
-                List("Q....", "...Q.", ".Q...", "....Q", "..Q.."),
-                List(".Q...", "...Q.", "Q....", "..Q..", "....Q"),
-                List(".Q...", "....Q", "..Q..", "Q....", "...Q."),
-                List("..Q..", "Q....", "...Q.", ".Q...", "....Q"),
-                List("..Q..", "....Q", ".Q...", "...Q.", "Q...."),
-                List("...Q.", "Q....", "..Q..", "....Q", ".Q..."),
-                List("...Q.", ".Q...", "....Q", "..Q..", "Q...."),
-                List("....Q", ".Q...", "...Q.", "Q....", "..Q.."),
-                List("....Q", "..Q..", "Q....", "...Q.", ".Q..."));
+            IList<Strings> q5 = [
+                ["Q....", "..Q..", "....Q", ".Q...", "...Q."],
+                ["Q....", "...Q.", ".Q...", "....Q", "..Q.."],
+                [".Q...", "...Q.", "Q....", "..Q..", "....Q"],
+                [".Q...", "....Q", "..Q..", "Q....", "...Q."],
+                ["..Q..", "Q....", "...Q.", ".Q...", "....Q"],
+                ["..Q..", "....Q", ".Q...", "...Q.", "Q...."],
+                ["...Q.", "Q....", "..Q..", "....Q", ".Q..."],
+                ["...Q.", ".Q...", "....Q", "..Q..", "Q...."],
+                ["....Q", ".Q...", "...Q.", "Q....", "..Q.."],
+                ["....Q", "..Q..", "Q....", "...Q.", ".Q..."]];
 
             yield return (5, q5);
         }

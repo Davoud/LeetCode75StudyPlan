@@ -101,7 +101,7 @@ internal class WordSearchIIb : Solution<(char[][] board, string[] words), IList<
                 ['a', 'a', 'a', 'a'],
                 ['a', 'a', 'a', 'a']];
          
-            yield return ((board, ["aabaaaaab"]), List("aabaaaaab"));
+            yield return ((board, ["aabaaaaab"]), ["aabaaaaab"]);
 
             //yield break;
 
@@ -110,27 +110,27 @@ internal class WordSearchIIb : Solution<(char[][] board, string[] words), IList<
                 ['a', 'e', 'd'],
                 ['a', 'f', 'g']];
 
-            yield return ((board, ["eaafgdcba"]), List("eaafgdcba"));
+            yield return ((board, ["eaafgdcba"]), ["eaafgdcba"]);
 
             //yield break;
 
             yield return ((board, ["abcdefg", "gfedcbaaa", "eaabcdgfa", "befa", "dgc", "ade"]), 
-                List("abcdefg", "gfedcbaaa", "eaabcdgfa", "befa"));
+                ["abcdefg", "gfedcbaaa", "eaabcdgfa", "befa"]);
 
             yield return (([['a', 'a']], ["aaa"]), new List<string>());
 
-            yield return (([['a']], ["a"]), List("a"));
+            yield return (([['a']], ["a"]), ["a"]);
 
             board = [
                 ['o', 'a', 'a', 'n'],
                 ['e', 't', 'a', 'e'],
                 ['i', 'h', 'k', 'r'],
                 ['i', 'f', 'l', 'v']];
-            yield return ((board, ["oath", "pea", "eat", "rain"]), List("oath", "eat"));
+            yield return ((board, ["oath", "pea", "eat", "rain"]), ["oath", "eat"]);
 
-            yield return (([['a']], ["b"]), new List<string>() );
+            yield return (([['a']], ["b"]), []);
 
-            yield return (([['a', 'b'], ['c', 'd']], ["abcd"]), new List<string>());
+            yield return (([['a', 'b'], ['c', 'd']], ["abcd"]), []);
             
         }
     }
@@ -290,7 +290,7 @@ internal class WordSearchII : Solution<(char[][] board, string[] words), IList<s
             yield return ((board, ["b"]), new List<string>());
 
             board = [['a']];
-            yield return ((board, ["a"]), List("a"));
+            yield return ((board, ["a"]), ["a"]);
 
             board = [
                 ['o', 'a', 'a', 'n'],
@@ -298,10 +298,10 @@ internal class WordSearchII : Solution<(char[][] board, string[] words), IList<s
                 ['i', 'h', 'k', 'r'],
                 ['i', 'f', 'l', 'v']];
 
-            yield return ((board, ["oath", "pea", "eat", "rain"]), List("oath", "eat"));
+            yield return ((board, ["oath", "pea", "eat", "rain"]), ["oath", "eat"]);
 
             board = [['a', 'b'], ['c', 'd']];
-            yield return ((board, ["abcd"]), new List<string>());
+            yield return ((board, ["abcd"]), []);
 
 
 

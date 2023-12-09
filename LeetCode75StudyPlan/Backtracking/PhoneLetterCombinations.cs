@@ -69,10 +69,10 @@ internal class PhoneLetterCombinations : Solution<string, IList<string>>
     {
         get
         {
-            yield return ("23", List("ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"));
-            yield return ("", new List<string>());
-            yield return ("2", List("a", "b", "c"));
-            yield return ("22", List("aa", "ab", "ac", "ba", "bb", "bc", "ca", "cb" , "ca"));
+            yield return ("23", ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]);
+            yield return ("", []);
+            yield return ("2", ["a", "b", "c"]);
+            yield return ("22", ["aa", "ab", "ac", "ba", "bb", "bc", "ca", "cb" , "ca"]);
 
         }
     }
