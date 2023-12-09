@@ -29,18 +29,12 @@ internal class SurroundedRegions : Solution<char[][], char[][]>
             {
                 switch (board[i][j])
                 {
-                    case FLIPPED:
-                        board[i][j] = CAPITALO;
-                        break;
-                    case CAPITALO:
-                        board[i][j] = CAPTURED;
-                        break;
+                    case FLIPPED: board[i][j] = CAPITALO; break;
+                    case CAPITALO: board[i][j] = CAPTURED; break;
                 }
             }
         }
-
         
-
         void Dfs(int i, int j)
         {
             if (0 <= i && i < ROWS && 0 <= j && j < COLS && board[i][j] == CAPITALO)
@@ -53,55 +47,7 @@ internal class SurroundedRegions : Solution<char[][], char[][]>
             }
         }
     }
-
-    public void _Capture(char[][] board)
-    {
-        int n = board.Length;
-        int m = board[0].Length;
-
-        for (int i = 0; i < n; i++)
-        {
-            for (int j = 0; j < m; j++)
-            {
-                if (board[i][j] == 'O')
-                {
-                    Dfs(i, j);
-                }
-            }
-        }
-
-
-        bool Dfs(int x, int y)
-        {
-            if (0 <= x && x < n && 0 <= y && y < m && board[x][y] == '0')
-            {
-                board[x][y] = '.';
-
-                var capturable = 
-                    Dfs(x - 1, y) && 
-                    Dfs(x + 1, y) && 
-                    Dfs(x, y - 1) && 
-                    Dfs(x, y + 1);
-                
-                if (x == 0 || y == 0 || x == n - 1 || y == m - 1)
-                {
-                    board[x][y] = 'O';
-                    return false;
-                }
-                else 
-                {
-                    board[x][y] = capturable ? 'X' : 'O';
-                    return capturable;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-    }
-
+    
     protected override string Title => "130. Surrounded Regions";
 
     protected override IEnumerable<(char[][], char[][])> TestCases

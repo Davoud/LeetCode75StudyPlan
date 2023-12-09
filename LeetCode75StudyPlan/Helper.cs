@@ -326,6 +326,39 @@ public static class Helper
         return list;        
     }
 
+    public static int[][] Int2D(string input)
+    {
+        var rows = input.Replace(" ", "").Split(']');
+        var arr2d = new int[rows.Length][];
+
+        for(int row = 0; row < rows.Length; row++)
+        {
+            string item = rows[row];
+            if (item.Length > 0)
+            {
+                string[] values = item.Replace(",[", "").Replace("[", "").Split(',');
+                if (values.Length > 0)
+                {
+                    var cols = new int[values.Length];
+                    for(int col = 0; col < cols.Length; col++)
+                    {
+                        if (int.TryParse(values[col], out int num))
+                        {
+                            cols[col] = num;
+                        }
+                    }                    
+                    arr2d[row] = cols;
+                }
+                else
+                {
+                    arr2d[row] = Array.Empty<int>();
+                }
+            }
+        }
+
+        return arr2d;
+    }
+
 
     public static char[][] Char2D(params string[] input)
     {

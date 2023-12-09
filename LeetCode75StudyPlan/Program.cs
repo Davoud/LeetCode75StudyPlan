@@ -4,5 +4,5 @@ using System;
 using System.Collections;
 using System.Numerics;
 
-((ITestable)new SurroundedRegions()).RunTests();
+((ITestable)new RottingOranges()).RunTests();
 
