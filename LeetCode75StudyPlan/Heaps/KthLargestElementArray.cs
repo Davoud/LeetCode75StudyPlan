@@ -15,8 +15,8 @@ internal class KthLargestElementArray : Solution<(int[] nums, int k), int>
     {
         get
         {
-            yield return ((@int[3, 2, 1, 5, 6, 4], 2), 5);
-            yield return ((@int[3, 2, 3, 1, 2, 4, 5, 5, 6], 4), 4);
+            yield return (([3, 2, 1, 5, 6, 4], 2), 5);
+            yield return (([3, 2, 3, 1, 2, 4, 5, 5, 6], 4), 4);
         }
     }
 

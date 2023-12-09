@@ -82,9 +82,9 @@ internal class MinimumNumberOfDaysToMakeBouquets : Solution<(int[] bloomDay, int
     {
         get
         {
-            yield return ((@int[7, 7, 7, 7, 12, 7, 7], 2, 3), 12);
-            yield return ((@int[1, 10, 3, 10, 2], 3, 1), 3);
-            yield return ((@int[1, 10, 3, 10, 2], 3, 2), -1);
+            yield return (([7, 7, 7, 7, 12, 7, 7], 2, 3), 12);
+            yield return (([1, 10, 3, 10, 2], 3, 1), 3);
+            yield return (([1, 10, 3, 10, 2], 3, 2), -1);
         }
     }
 

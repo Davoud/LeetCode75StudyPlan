@@ -81,12 +81,12 @@ internal class GraphDeepCopier : Solution<Node?, Node?>
     {
         get
         {
-            IList<IList<int>> neighbours = List2D("[2,4],[1,3],[2,4],[1,3]");
+            IList<IList<int>> neighbours = [[2,4],[1,3],[2,4],[1,3]];
             Node[] g1 = neighbours.BuildGraph();
             var g2 = neighbours.BuildGraph();           
             yield return (g1[0], g2[0]);
 
-            neighbours = List2D("[2,3,4],[1,7],[1],[1,5,6,8],[4],[4],[2],[4]");
+            neighbours = [[2,3,4],[1,7],[1],[1,5,6,8],[4],[4],[2],[4]];
             g1 = neighbours.BuildGraph();
             g2 = neighbours.BuildGraph();          
             yield return (g1[0], g2[0]);

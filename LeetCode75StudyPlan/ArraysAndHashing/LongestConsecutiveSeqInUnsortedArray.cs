@@ -9,13 +9,13 @@ internal static class LongestConsecutiveSeqInUnsortedArray
             Console.WriteLine("128. Longest Consecutive Sequence");
             var testCases = new List<(int[] input, int result)>
             {
-                (Arr(9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6), 7),
-                (Arr(100, 4, 200, 1, 3, 2), 4),
-                (Arr(0, 3, 7, 2, 5, 8, 4, 6, 0, 1), 9),
-                (Arr(10, 20, 30), 1),
-                (Arr(10, -3, -2, 20, 0, -1, 1), 5),
-                (Arr(0), 1),
-                (Arr<int>(), 0),                
+                ([9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6], 7),
+                ([100, 4, 200, 1, 3, 2], 4),
+                ([0, 3, 7, 2, 5, 8, 4, 6, 0, 1], 9),
+                ([10, 20, 30], 1),
+                ([10, -3, -2, 20, 0, -1, 1], 5),
+                ([0], 1),
+                ([], 0),                
             };
 
             testCases.RunTests(LongestConsecutive, (a, b) => a == b);

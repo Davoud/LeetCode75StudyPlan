@@ -120,15 +120,16 @@ internal class PasificAtlanticWaterFlow : Solution<int[][], IList<IList<int>>>
     protected override IEnumerable<(int[][], IList<IList<int>>)> TestCases
     {
         get
-        {
-            var heights = Arr(
-                @int[1, 2, 2, 3, 5],
-                @int[3, 2, 3, 4, 4],
-                @int[2, 4, 5, 3, 1],
-                @int[6, 7, 1, 4, 5],
-                @int[5, 1, 1, 2, 4]);
+        {            
 
-            yield return (heights, List2D("[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]"));
+            yield return ([
+                [1, 2, 2, 3, 5],
+                [3, 2, 3, 4, 4],
+                [2, 4, 5, 3, 1],
+                [6, 7, 1, 4, 5],
+                [5, 1, 1, 2, 4]],                                 
+                
+                [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]);
         }
     }
 

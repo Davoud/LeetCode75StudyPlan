@@ -31,7 +31,7 @@ internal class KthLargest : ITestable
 
         var k = this;
 
-        var cases = Arr((3, 4), (5, 5), (10, 5), (9, 8), (4, 8));
+        (int,int)[] cases = [(3, 4), (5, 5), (10, 5), (9, 8), (4, 8)];
         foreach((int input, int expected) in cases)
         {
             int actual = k.Add(input);
@@ -39,8 +39,8 @@ internal class KthLargest : ITestable
         }
 
         $"\n703.Kth Largest Element in a Stream".WriteLine();
-        k = new KthLargest(1, @int[-2]);        
-        cases = Arr((-3, -2), (0, 0), (2, 2), (-1, 2), (4, 4));
+        k = new KthLargest(1, [-2]);        
+        cases = [(-3, -2), (0, 0), (2, 2), (-1, 2), (4, 4)];
         foreach ((int input, int expected) in cases)
         {
             int actual = k.Add(input);

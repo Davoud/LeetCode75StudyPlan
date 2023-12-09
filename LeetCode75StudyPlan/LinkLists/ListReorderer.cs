@@ -80,7 +80,7 @@ internal class ListReorderer : ITestable
     {
         "143. Reorder List".WriteLine();
 
-        (ListNode input, ListNode output)[] cases = new[]
+        (ListNode? input, ListNode? output)[] cases = new[]
         {
            (lx[1, 2, 3, 4, 5, 6, 7], lx[1, 7, 2, 6, 3, 5, 4]),
            (lx[1, 2, 3, 4, 5], lx[1, 5, 2, 4, 3]), 

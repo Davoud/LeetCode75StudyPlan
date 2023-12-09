@@ -11,8 +11,8 @@ internal class SearchInsertPosition : Solution<(int[] nums, int target), int>
     {
         get
         {
-            yield return ((@int[1, 3, 5, 6], 5), 2);
-            yield return ((@int[1, 3, 5, 6], 2), 1);
+            yield return (([1, 3, 5, 6], 5), 2);
+            yield return (([1, 3, 5, 6], 2), 1);
         }
     }
 

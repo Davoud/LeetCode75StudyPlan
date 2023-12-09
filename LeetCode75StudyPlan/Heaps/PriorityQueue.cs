@@ -216,9 +216,9 @@ class MinPqTests : ITestable
 
     private static void TestCase1()
     {
-        var pq = new MinPq(@int[4, 5, 8, 2]);
+        var pq = new MinPq([4, 5, 8, 2]);
         pq.Dump();
-        int[] expecteds = @int[2, 4, 5, 8];
+        int[] expecteds = [2, 4, 5, 8];
         for (int i = 0; i < expecteds.Length; i++)
         {
             int actual = pq.Dequeue();

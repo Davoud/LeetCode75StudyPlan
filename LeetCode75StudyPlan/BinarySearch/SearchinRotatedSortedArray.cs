@@ -95,12 +95,12 @@ internal class SearchinRotatedSortedArray : Solution<(int[] nums, int target), i
     {
         get
         {
-            yield return ((@int[4, 5, 6, 7, 0, 1, 2], 0), 4);
-            yield return ((@int[0, 1, 2, 5, 10, 11, 12], 10), 4);
-            yield return ((@int[-1, 1, 2, 5, 10, 11, 12], -1), 0);
-            yield return ((@int[4, 5, 6, 7, 0, 1, 2], 3), -1);
-            yield return ((@int[1], 0), -1);
-            yield return ((@int[3, 1], 1), 1);
+            yield return (([4, 5, 6, 7, 0, 1, 2], 0), 4);
+            yield return (([0, 1, 2, 5, 10, 11, 12], 10), 4);
+            yield return (([-1, 1, 2, 5, 10, 11, 12], -1), 0);
+            yield return (([4, 5, 6, 7, 0, 1, 2], 3), -1);
+            yield return (([1], 0), -1);
+            yield return (([3, 1], 1), 1);
         }
     }
 

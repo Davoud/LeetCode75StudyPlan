@@ -76,9 +76,9 @@ internal class CombinationSumII : Solution<(int[] candidates, int target), IList
     {
         get
         {
-            yield return ((@int[1, 1], 2), List2D("[1,1]"));
-            yield return ((@int[2, 5, 2, 1, 2], 5), List2D("[1,2,2],[5]"));
-            yield return ((@int[10, 1, 2, 7, 6, 1, 5], 8), List2D("[1,1,6],[1,2,5],[1,7],[2,6]"));
+            yield return (([1, 1], 2), [[1,1]]);
+            yield return (([2, 5, 2, 1, 2], 5), [[1,2,2],[5]]);
+            yield return (([10, 1, 2, 7, 6, 1, 5], 8), [[1,1,6],[1,2,5],[1,7],[2,6]]);
         }
     }
 }

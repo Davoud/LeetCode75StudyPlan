@@ -9,15 +9,15 @@ internal static class TrapingRainWater
     {
         Console.WriteLine("42. Trapping Rain Water");
 
-        new[]
-        {
-           ( Arr(0,1,0,2,1,0,1,3,2,1,2,1), 6 ),
-           ( Arr(4,2,0,3,2,5), 9 ),
-           ( Arr(4,3,5), 1),
-           ( Arr(4,0,1,0,2,0,1,0,4), 24),
-           ( Arr(4,1,2,1,4), 8),
-        }
-        .RunTests(Trap);
+        (int[], int)[] cases = [
+           ([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1], 6),
+           ([4, 2, 0, 3, 2, 5], 9),
+           ([4, 3, 5], 1),
+           ([4, 0, 1, 0, 2, 0, 1, 0, 4], 24),
+           ([4, 1, 2, 1, 4], 8),
+        ];
+
+        cases.RunTests(Trap);
     }
 
     public static int Trap(int[] height)

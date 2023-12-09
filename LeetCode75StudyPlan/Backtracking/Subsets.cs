@@ -66,7 +66,7 @@ class Subset : ITestable
     public void RunTests()
     {
         var s = new Subset();
-        var set = @int[1, 4, 10, 3];
+        int[] set = [1, 4, 10, 3];
         int i = 0;
 
         var subsets = s.SubsetsByBacktracking(set);

@@ -11,13 +11,13 @@ internal static class ContainerWithMostWater11
 
     public static void RunTests()
     {
-        var testCases = new[]
-        {
-            (Arr(1, 8, 6, 2, 5, 4, 8, 3, 7), 49),
-            (Arr(1, 2, 3, 1000, 900, 2, 2, 5), 900),
-            (Arr(1, 1, 1, 1, 1000, 2, 1500, 5), 2000),
-            (Arr(1, 1), 1),
-        };
+        (int[], int)[] testCases =
+        [
+            ([1, 8, 6, 2, 5, 4, 8, 3, 7], 49),
+            ([1, 2, 3, 1000, 900, 2, 2, 5], 900),
+            ([1, 1, 1, 1, 1000, 2, 1500, 5], 2000),
+            ([1, 1], 1)
+        ];
 
         testCases.RunTests(MaxArea, (a, b) => a == b);
     }

@@ -17,13 +17,13 @@ internal class RottingOranges : Solution<int[][], int>
     {
         get
         {           
-            yield return (Int2D("[2,1,1]," +
-                                "[1,1,0]," +
-                                "[0,1,1]"), 4);
+            yield return ([[2,1,1],
+                           [1,1,0],
+                           [0,1,1]], 4);
 
-            yield return (Int2D("[2,1,1]," +
-                                "[0,1,1]," +
-                                "[1,0,1]"), -1);
+            yield return ([[2,1,1],
+                           [0,1,1],
+                           [1,0,1]], -1);
         }
     }
 

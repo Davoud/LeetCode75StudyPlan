@@ -40,8 +40,8 @@ internal class BTreePreorderInorderTraversal : Solution<(int[] preorder, int[] i
     {
         get
         {
-            yield return ((@int[1, 2, 4, 5, 3, 6, 7], @int[4, 2, 5, 1, 6, 3, 7]), Tree(1, 2, 3, 4, 5, 6, 7));
-            yield return ((@int[3, 9, 20, 15, 7], @int[9, 3, 15, 20, 7]), Tree(3, 9, 20, null, null, 15, 7));
+            yield return (([1, 2, 4, 5, 3, 6, 7], [4, 2, 5, 1, 6, 3, 7]), Tree(1, 2, 3, 4, 5, 6, 7));
+            yield return (([3, 9, 20, 15, 7], [9, 3, 15, 20, 7]), Tree(3, 9, 20, null, null, 15, 7));
         }
     }
 

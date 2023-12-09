@@ -42,7 +42,7 @@ internal class CombinationSumer : Solution<(int[] candidates, int target), IList
     {
         get
         {
-            yield return ((@int[2, 3, 6, 7], 7), List(List(2, 2, 3), List(7)));
+            yield return (([2, 3, 6, 7], 7), List(List(2, 2, 3), List(7)));
         }
     }
 

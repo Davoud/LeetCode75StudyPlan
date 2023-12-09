@@ -64,16 +64,16 @@ internal class MedianOfTwoSortedArrays : Solution<(int[] nums1, int[] nums2), do
     {
         get
         {
-            var case1 = (@int[1, 3, 5, 7, 9, 11], @int[2, 4, 6, 8, 10, 12, 13, 14, 15, 16, 17, 20]);            
+            (int[], int[]) case1 = ([1, 3, 5, 7, 9, 11], [2, 4, 6, 8, 10, 12, 13, 14, 15, 16, 17, 20]);            
             yield return (case1, Median(MergeSorted(case1)));
 
-            var case2 = (@int[1, 3], @int[2]);
+            (int[], int[]) case2 = ([1, 3], [2]);
             yield return (case2, Median(MergeSorted(case2)));
 
-            var case3 = (@int[1, 2], @int[3, 4]);
+            (int[], int[]) case3 = ([1, 2], [3, 4]);
             yield return (case3, Median(MergeSorted(case3)));
 
-            var case4 = (@int[1, 2, 3, 3], @int[1, 1, 1, 1, 2, 2, 3, 3, 3, 4, 4]);
+            (int[], int[]) case4 = ([1, 2, 3, 3], [1, 1, 1, 1, 2, 2, 3, 3, 3, 4, 4]);
             yield return (case4, Median(MergeSorted(case4)));
         }
     }

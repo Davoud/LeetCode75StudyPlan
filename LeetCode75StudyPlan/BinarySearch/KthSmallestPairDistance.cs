@@ -37,9 +37,9 @@ internal class KthSmallestPairDistance : Solution<(int[] nums, int k), int>
     {
         get
         {
-            yield return ((@int[1, 3, 1], 1), 0);
-            yield return ((@int[1, 1, 1], 2), 0);
-            yield return ((@int[1, 6, 1], 3), 5);
+            yield return (([1, 3, 1], 1), 0);
+            yield return (([1, 1, 1], 2), 0);
+            yield return (([1, 6, 1], 3), 5);
         }
     }
 

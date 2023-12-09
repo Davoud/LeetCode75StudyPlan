@@ -25,8 +25,8 @@ internal class KClosestPoints2Origin : Solution<(int[][] points, int k), int[][]
     {
         get
         {
-            yield return ((Arr(@int[3, 3], @int[5, -1], @int[-2, 4]), 2), Arr(@int[-2, 4], @int[3, 3]));
-            yield return ((Arr(@int[1, 3], @int[-2, 2]), 1), Arr<int[]>(@int[-2, 2]));
+            yield return (([[3, 3], [5, -1], [-2, 4]], 2), [[-2, 4], [3, 3]]);
+            yield return (([[1, 3], [-2, 2]], 1), [[-2, 2]]);
         }
     }
 

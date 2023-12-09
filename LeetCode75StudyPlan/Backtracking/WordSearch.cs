@@ -87,28 +87,28 @@ internal class WordSearch : Solution<(char[][] board, string word), bool>
     protected override IEnumerable<((char[][] board, string word), bool)> TestCases
     {
         get
-        {  
-            var board3 = Arr(
-                @char['A', 'B', 'C', 'E'],
-                @char['S', 'F', 'E', 'S'],
-                @char['A', 'D', 'E', 'E']);
+        {
+            char[][] board3 = [
+                ['A', 'B', 'C', 'E'],
+                ['S', 'F', 'E', 'S'],
+                ['A', 'D', 'E', 'E']];
 
             yield return ((board3, "ABCESEEEFS"), true);
 
             //yield break;
 
-            var board1 = Arr(
-                @char['A', 'B', 'C', 'E'],
-                @char['S', 'F', 'C', 'S'],
-                @char['A', 'D', 'E', 'E']);
+            char[][] board1 = [
+                ['A', 'B', 'C', 'E'],
+                ['S', 'F', 'C', 'S'],
+                ['A', 'D', 'E', 'E']];
            
             yield return ((board1, "ABCCED"), true);           
             yield return ((board1, "SEE"), true);
             yield return ((board1, "ABCB"), false);
 
-            var board2 = Arr(
-                @char['a', 'b'], 
-                @char['c', 'd']);
+            char[][] board2 = [
+                ['a', 'b'], 
+                ['c', 'd']];
 
             yield return ((board2, "cdba"), true);
 

@@ -50,11 +50,9 @@ internal class LargestRectangleInHistogram : ITestable
     {
         "84. Largest Rectangle in Histogram".WriteLine();
 
-        var cases = new[]
-        {
-            (@int[2, 1, 5, 6, 2, 3], 10),
-            (@int[2, 4],              4),
-        };
+        (int[], int)[] cases = [
+            ([2, 1, 5, 6, 2, 3], 10),
+            ([2, 4], 4)];        
 
         cases.RunTests(LargestRectangleArea);
     }

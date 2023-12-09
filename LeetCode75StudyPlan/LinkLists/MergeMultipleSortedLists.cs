@@ -8,9 +8,9 @@ internal class MergeMultipleSortedLists : Solution<ListNode?[], ListNode?>
     {
         get
         {
-            yield return (Arr(lx[1, 4, 5], lx[1, 3, 4], lx[2, 6]), lx[1, 1, 2, 3, 4, 4, 5, 6]);
-            yield return (Array.Empty<ListNode>(), lx.Empty);
-            yield return (Arr(lx.Empty), lx.Empty);
+            yield return ([lx[1, 4, 5], lx[1, 3, 4], lx[2, 6]], lx[1, 1, 2, 3, 4, 4, 5, 6]);
+            yield return ([], lx.Empty);
+            yield return ([lx.Empty], lx.Empty);
         }
     }
 

@@ -42,9 +42,9 @@ internal class CarFleeter : ITestable
                
         var cases = new (TestCase input, int output)[]
         {
-            (new(12,  @int[10,8,0,5,3], @int[2,4,1,1,3]),   3),
-            (new(10,  @int[3],          @int[3]),           1),
-            (new(100, @int[0,2,4],      @int[4,2,1]),       1),
+            (new(12,  [10,8,0,5,3], [2,4,1,1,3]),   3),
+            (new(10,  [3],          [3]),           1),
+            (new(100, [0,2,4],      [4,2,1]),       1),
         };
 
         cases.RunTests(i => CarFleet(i.Target, i.Position, i.Speed));

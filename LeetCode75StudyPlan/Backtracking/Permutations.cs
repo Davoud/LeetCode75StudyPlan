@@ -60,12 +60,12 @@ internal class Permutations : Solution<int[], IList<IList<int>>>
     {
         get
         {
-            yield return (@int[1, 2, 3],
+            yield return ([1, 2, 3],
                 List(List(1, 2, 3), List(1, 3, 2), List(2, 1, 3), List(2, 3, 1), List(3, 1, 2), List(3, 2, 1)));
 
-            yield return (@int[0, 1], List(List(0, 1), List(1, 0)));
+            yield return ([0, 1], List(List(0, 1), List(1, 0)));
 
-            yield return (@int[1], List(List(1)));
+            yield return ([1], List(List(1)));
 
         }
     }

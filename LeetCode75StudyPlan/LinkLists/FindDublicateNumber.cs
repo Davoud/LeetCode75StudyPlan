@@ -71,9 +71,9 @@ internal class FindDublicateNumber: Solution<int[],int>
     {
         get
         {
-            yield return (@int[1, 3, 4, 2, 2], 2);
-            yield return (@int[3, 1, 3, 4, 2], 3);
-            yield return (@int[4, 2, 3, 1, 4], 4);
+            yield return ([1, 3, 4, 2, 2], 2);
+            yield return ([3, 1, 3, 4, 2], 3);
+            yield return ([4, 2, 3, 1, 4], 4);
         }
     }        
 }

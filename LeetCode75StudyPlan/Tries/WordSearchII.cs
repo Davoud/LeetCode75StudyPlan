@@ -93,44 +93,44 @@ internal class WordSearchIIb : Solution<(char[][] board, string[] words), IList<
     {
         get
         {
-            var board = Arr(
-                @char['b', 'a', 'b', 'a'],
-                @char['b', 'b', 'b', 'a'],
-                @char['b', 'b', 'b', 'a'],
-                @char['b', 'a', 'a', 'a'],
-                @char['a', 'a', 'a', 'a'],
-                @char['a', 'a', 'a', 'a']);
+            char[][] board = [
+                ['b', 'a', 'b', 'a'],
+                ['b', 'b', 'b', 'a'],
+                ['b', 'b', 'b', 'a'],
+                ['b', 'a', 'a', 'a'],
+                ['a', 'a', 'a', 'a'],
+                ['a', 'a', 'a', 'a']];
          
-            yield return ((board, Arr("aabaaaaab")), List("aabaaaaab"));
-
-            yield break;
-
-            board = Arr(
-                @char['a', 'b', 'c'],
-                @char['a', 'e', 'd'],
-                @char['a', 'f', 'g']);
-
-            yield return ((board, Arr("eaafgdcba")), List("eaafgdcba"));
+            yield return ((board, ["aabaaaaab"]), List("aabaaaaab"));
 
             //yield break;
 
-            yield return ((board, Arr("abcdefg", "gfedcbaaa", "eaabcdgfa", "befa", "dgc", "ade")), 
+            board = [
+                ['a', 'b', 'c'],
+                ['a', 'e', 'd'],
+                ['a', 'f', 'g']];
+
+            yield return ((board, ["eaafgdcba"]), List("eaafgdcba"));
+
+            //yield break;
+
+            yield return ((board, ["abcdefg", "gfedcbaaa", "eaabcdgfa", "befa", "dgc", "ade"]), 
                 List("abcdefg", "gfedcbaaa", "eaabcdgfa", "befa"));
 
-            yield return ((Arr<char[]>(@char['a', 'a']), Arr("aaa")), new List<string>());
+            yield return (([['a', 'a']], ["aaa"]), new List<string>());
 
-            yield return ((Arr<char[]>(@char['a']), Arr("a")), List("a"));
+            yield return (([['a']], ["a"]), List("a"));
 
-            board = Arr(
-                @char['o', 'a', 'a', 'n'],
-                @char['e', 't', 'a', 'e'],
-                @char['i', 'h', 'k', 'r'],
-                @char['i', 'f', 'l', 'v']);
-            yield return ((board, Arr("oath", "pea", "eat", "rain")), List("oath", "eat"));
+            board = [
+                ['o', 'a', 'a', 'n'],
+                ['e', 't', 'a', 'e'],
+                ['i', 'h', 'k', 'r'],
+                ['i', 'f', 'l', 'v']];
+            yield return ((board, ["oath", "pea", "eat", "rain"]), List("oath", "eat"));
 
-            yield return ((Arr<char[]>(@char['a']), Arr("b")), new List<string>());
+            yield return (([['a']], ["b"]), new List<string>() );
 
-            yield return ((Arr(@char['a', 'b'], @char['c', 'd']), Arr("abcd")), new List<string>());
+            yield return (([['a', 'b'], ['c', 'd']], ["abcd"]), new List<string>());
             
         }
     }
@@ -283,25 +283,25 @@ internal class WordSearchII : Solution<(char[][] board, string[] words), IList<s
     {
         get
         {
-            var board = Arr<char[]>(@char['a', 'a']);
-            yield return ((board, Arr("aaa")), new List<string>());
+            char[][] board = [['a', 'a']];
+            yield return ((board, ["aaa"]), new List<string>());    
 
-            board = Arr<char[]>(@char['a']);
-            yield return ((board, Arr("b")), new List<string>());
+            board = [['a']];
+            yield return ((board, ["b"]), new List<string>());
 
-            board = Arr<char[]>(@char['a']);
-            yield return ((board, Arr("a")), List("a"));
+            board = [['a']];
+            yield return ((board, ["a"]), List("a"));
 
-            board = Arr(
-                @char['o', 'a', 'a', 'n'],
-                @char['e', 't', 'a', 'e'],
-                @char['i', 'h', 'k', 'r'],
-                @char['i', 'f', 'l', 'v']);
+            board = [
+                ['o', 'a', 'a', 'n'],
+                ['e', 't', 'a', 'e'],
+                ['i', 'h', 'k', 'r'],
+                ['i', 'f', 'l', 'v']];
 
-            yield return ((board, Arr("oath", "pea", "eat", "rain")), List("oath", "eat"));
+            yield return ((board, ["oath", "pea", "eat", "rain"]), List("oath", "eat"));
 
-            board = Arr(@char['a', 'b'], @char['c', 'd']);
-            yield return ((board, Arr("abcd")), new List<string>());
+            board = [['a', 'b'], ['c', 'd']];
+            yield return ((board, ["abcd"]), new List<string>());
 
 
 

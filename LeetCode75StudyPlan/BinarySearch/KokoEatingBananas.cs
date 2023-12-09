@@ -42,9 +42,9 @@ internal class KokoEatingBananas : Solution<(int[] piles, int h), int>
     {
         get
         {
-            yield return ( (@int[3, 6, 7, 11],        8),  4);
-            yield return ( (@int[30, 11, 23, 4, 20],  5), 30);
-            yield return ( (@int[30, 11, 23, 4, 20],  6), 23);
+            yield return ( ([3, 6, 7, 11],        8),  4);
+            yield return ( ([30, 11, 23, 4, 20],  5), 30);
+            yield return ( ([30, 11, 23, 4, 20],  6), 23);
         }
     }
 

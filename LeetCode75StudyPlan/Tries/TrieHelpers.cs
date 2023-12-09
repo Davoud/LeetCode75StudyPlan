@@ -10,27 +10,27 @@ public static class TrieHelpers
 
             Console.WriteLine("Test Case 1:");
             RunTest(
-                Arr("insert", "search", "search", "search", "startsWith", "startsWith", "startsWith"),
-                Arr("hello", "hell", "helloa", "hello", "hell", "helloa", "hello"),
-                Arr<bool?>(null, false, false, true, true, false, true));
+                ["insert", "search", "search", "search", "startsWith", "startsWith", "startsWith"],
+                ["hello", "hell", "helloa", "hello", "hell", "helloa", "hello"],
+                [null, false, false, true, true, false, true]);
 
             Console.WriteLine("Test Case 2:");
             RunTest(
-                Arr("insert", "search", "search", "startsWith", "insert", "search"),
-                Arr("apple", "apple", "app", "app", "app", "app"),
-                Arr<bool?>(null, true, false, true, null, true));
+                ["insert", "search", "search", "startsWith", "insert", "search"],
+                ["apple", "apple", "app", "app", "app", "app"],
+                [null, true, false, true, null, true]);
 
             Console.WriteLine("Test Case 3:");
             RunTest(
-                Arr("insert", "insert", "insert", "search", "search", "search", "search"),
-                Arr("bad", "dad", "mad", "pad", "bad", ".ad", "b.."),
-                Arr<bool?>(null, null, null, false, true, true, true));
+                ["insert", "insert", "insert", "search", "search", "search", "search"],
+                ["bad", "dad", "mad", "pad", "bad", ".ad", "b.."],
+                [null, null, null, false, true, true, true]);
 
             Console.WriteLine("Test Case 4:");
             RunTest(
-                Arr("insert", "insert",  "insert", "search", "search", "search", "search", "search"),
-                Arr("abcdefg", "abcxefg", "abcyzfg", "abc.efg", "abc..fg", "abcde..", "..cxefg", "..cxefh"),
-                Arr<bool?>(null, null, null, true, true, true, true, false));
+                ["insert", "insert",  "insert", "search", "search", "search", "search", "search"],
+                ["abcdefg", "abcxefg", "abcyzfg", "abc.efg", "abc..fg", "abcde..", "..cxefg", "..cxefh"],
+                [null, null, null, true, true, true, true, false]);
 
         }
 

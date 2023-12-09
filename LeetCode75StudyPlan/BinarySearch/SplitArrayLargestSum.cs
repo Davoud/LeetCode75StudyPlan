@@ -11,8 +11,8 @@ internal class SplitArrayLargestSum : Solution<(int[] nums, int k), int>
     {
         get
         {
-            yield return ((@int[7, 2, 5, 10, 8], 2), 18);
-            yield return ((@int[1, 2, 3, 4, 5], 2), 9);
+            yield return (([7, 2, 5, 10, 8], 2), 18);
+            yield return (([1, 2, 3, 4, 5], 2), 9);
         }
     }
 

@@ -8,7 +8,7 @@ internal class CapacityToShipPackagesWithinDDays : Solution<(int[] weights, int 
     {
         get
         {
-            yield return ((@int[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5), 15);
+            yield return (([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5), 15);
         }
     }
 

@@ -26,9 +26,9 @@ internal class MinimumOfRotatedSortedArray : Solution<int[], int>
     {
         get
         {
-            yield return (@int[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 1, 2],    0);
-            yield return (@int[3, 4, 5, 1, 2],          1);
-            yield return (@int[11, 13, 15, 17],        11);
+            yield return ([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 1, 2],    0);
+            yield return ([3, 4, 5, 1, 2],          1);
+            yield return ([11, 13, 15, 17],        11);
         }
     }
 

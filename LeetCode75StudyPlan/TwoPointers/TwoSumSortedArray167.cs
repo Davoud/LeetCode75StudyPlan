@@ -8,14 +8,14 @@ internal static class TwoSumSortedArray167
 {
     public static void RunTests()
     {
-        var testCases = new ((int[] numbers, int target), int[] result)[]
-        {
-            ( (Arr(-1,0),     -1),   Arr(1,2) ),
-            ( (Arr(3,24,50,79,88,150,345), 200), Arr(3,6)),
-            ( (Arr(-2,-1,0,1), 0),   Arr(2,4) ),
-            ( (Arr(2,7,11,15), 9),   Arr(1,2) ),
-            ( (Arr(2,3,4),     6),   Arr(1,3) ),
-        };
+        ((int[] numbers, int target), int[])[] testCases =
+        [
+            (([-1, 0], -1), [1, 2]),
+            (([3, 24, 50, 79, 88, 150, 345], 200), [3, 6]),
+            (([-2, -1, 0, 1], 0), [2, 4]),
+            (([2, 7, 11, 15], 9), [1, 2]),
+            (([2, 3, 4], 6), [1, 3]),
+        ];
 
         testCases.RunTests(i => TwoSum(i.numbers, i.target), Enumerable.SequenceEqual);
     }
@@ -43,7 +43,7 @@ internal static class TwoSumSortedArray167
             {
                 int sum = numbers[i] + numbers[j];
                 if (sum == target)
-                    return Arr(i + 1, j + 1);
+                    return [i + 1, j + 1];
 
                 j++;
             }
@@ -58,12 +58,12 @@ internal static class TwoSumSortedArray167
     {
         Console.WriteLine("Testing 15. 3Sum");
 
-        (int[], IList<IList<int>>)[] testCases = new[]
-        {
-            (   Arr(-1,0,1,2,-1,-4),   List(List(-1,-1,2), List(-1,0,1))  ),
-            (   Arr(0,1,1),            List<IList<int>>()               ),
-            (   Arr(0,0,0),            List(List(0,0,0))                 ),
-        };
+        (int[], IList<IList<int>>)[] testCases =
+        [
+            ([-1, 0, 1, 2, -1, -4], List(List(-1, -1, 2), List(-1, 0, 1))),
+            ([0, 1, 1], List<IList<int>>()),
+            ([0, 0, 0], List(List(0, 0, 0))),
+        ];
 
 
         testCases.RunTests(ThreeSum, (actual, expected) =>
@@ -115,7 +115,7 @@ internal static class TwoSumSortedArray167
             for (int j = i + 1; j < nums.Length - 1; j++)
             {
                 var k = Array.BinarySearch<int>(nums, j + 1, nums.Length - j - 1, (-1) * (nums[i] + nums[j]));
-                if(k > 0)
+                if (k > 0)
                 {
                     set.Add(new Triple(nums[i], nums[j], nums[k]));
                 }
@@ -131,7 +131,7 @@ internal static class TwoSumSortedArray167
         {
             for (int j = i + 1; j < nums.Length - 1; j++)
             {
-                for(int k = j + 1; k < nums.Length; k++)
+                for (int k = j + 1; k < nums.Length; k++)
                 {
                     if (nums[i] + nums[j] + nums[k] == 0)
                     {

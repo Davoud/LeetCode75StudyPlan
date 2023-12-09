@@ -76,12 +76,12 @@ internal class Search2DMatrix : Solution<(int[][], int), bool>
     {
         get
         {
-            yield return ((Arr(@int[1], @int[3]), 3), true);
+            yield return (([[1], [3]], 3), true);
 
-            int[][] matrix =
-                Arr(@int[1, 3, 5, 7],
-                    @int[10, 11, 16, 20],
-                    @int[23, 30, 34, 60]);
+            int[][] matrix = [
+                [1, 3, 5, 7],
+                [10, 11, 16, 20],
+                [23, 30, 34, 60]];
                     
             yield return ((matrix, 3), true);
             yield return ((matrix, 1), true);

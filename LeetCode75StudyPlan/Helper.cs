@@ -6,9 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace System;
 public static class Helper
-{
-    public readonly static ArrayGenerator<int> @int = new();
-    public readonly static ArrayGenerator<char> @char = new();
+{       
     public readonly static LinkListGenerator lx = new();
     public static void WriteLine(this string value) => Console.WriteLine(value);
 
@@ -28,9 +26,7 @@ public static class Helper
     public static string AsStr<T>(this IEnumerable<T> source, string open, string close) => open + string.Join(", ", source) + close;
     public static void Dump<T>(this IEnumerable<T> source)
         => Console.WriteLine(string.Join(", ", source));
-
-    public static T[] Arr<T>(params T[] input) => input;
-
+   
     public static int[] Arr(Range range)
     {
         int len = range.End.Value - range.Start.Value;
@@ -299,67 +295,7 @@ public static class Helper
             return new(values[0], AsLinkList(values[1..]));
         }
     }
-
-    public static IList<IList<int>> List2D(string input)
-    {
-        var list = new List<IList<int>>();        
-        foreach (string item in input.Replace(" ", "").Split(']'))
-        {
-            if (item.Length > 0)
-            {
-                string[] values = item.Replace(",[", "").Replace("[", "").Split(',');
-                if (values.Length > 0)
-                {
-                    var listOfNums = new List<int>();
-                    foreach (string value in values)
-                    {
-                        if (int.TryParse(value, out int num))
-                        {
-                            listOfNums.Add(num);
-                        }
-                    }
-                    list.Add(listOfNums);
-                }
-            }
-        }
-
-        return list;        
-    }
-
-    public static int[][] Int2D(string input)
-    {
-        var rows = input.Replace(" ", "").Split(']');
-        var arr2d = new int[rows.Length][];
-
-        for(int row = 0; row < rows.Length; row++)
-        {
-            string item = rows[row];
-            if (item.Length > 0)
-            {
-                string[] values = item.Replace(",[", "").Replace("[", "").Split(',');
-                if (values.Length > 0)
-                {
-                    var cols = new int[values.Length];
-                    for(int col = 0; col < cols.Length; col++)
-                    {
-                        if (int.TryParse(values[col], out int num))
-                        {
-                            cols[col] = num;
-                        }
-                    }                    
-                    arr2d[row] = cols;
-                }
-                else
-                {
-                    arr2d[row] = Array.Empty<int>();
-                }
-            }
-        }
-
-        return arr2d;
-    }
-
-
+   
     public static char[][] Char2D(params string[] input)
     {
         var chars = new char[input.Length][];
