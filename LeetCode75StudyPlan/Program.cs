@@ -6,5 +6,7 @@ using System.Collections.Immutable;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
-((ITestable)new RottingOranges()).RunTests();
+
+
+((ITestable)new ScheduleVerifierSubmit()).RunTests();
 
