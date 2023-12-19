@@ -8,5 +8,5 @@ using System.Runtime.CompilerServices;
 
 
 
-((ITestable)new ScheduleVerifierSubmit()).RunTests();
+((ITestable)new CourseScheduleOrderer()).RunTests();
 

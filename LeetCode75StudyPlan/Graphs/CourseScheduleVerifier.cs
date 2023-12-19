@@ -47,8 +47,8 @@ class ScheduleVerifierSubmit : ScheduleVerifier
 
         Queue<int> q = new();
         int visited = 0;
-
-        for (int u = 0; u < graph.Count; u++)
+       
+        for (int u = 0; u < inDegree.Length; u++)
             if (inDegree[u] == 0) q.Enqueue(u);                    
 
         while (q.Count > 0)
