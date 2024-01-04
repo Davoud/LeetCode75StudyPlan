@@ -8,5 +8,7 @@ using System.Runtime.CompilerServices;
 
 
 
-((ITestable)new CourseScheduleOrderer()).RunTests();
+((ITestable)new RedundantConnectionFinder()).RunTests();
 
+
+    //((ITestable)new CourseScheduleOrderer()).RunTests();
