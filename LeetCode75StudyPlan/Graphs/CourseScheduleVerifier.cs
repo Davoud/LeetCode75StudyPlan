@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-using Graph = System.Collections.Generic.IReadOnlyList<System.Collections.Generic.IReadOnlyList<int>>;
+using MyGraph = System.Collections.Generic.IReadOnlyList<System.Collections.Generic.IReadOnlyList<int>>;
 
 namespace LeetCode75StudyPlan.Graphs;
 
@@ -70,7 +70,7 @@ class ScheduleVerifierKahn : ScheduleVerifier
         return !HasCycle(GraphOf(numCourses, prerequisites));
     }
 
-    private static bool HasCycle(Graph graph)
+    private static bool HasCycle(MyGraph graph)
     {
         int[] inDegree = new int[graph.Count];
         Queue<int> q = new(); 
@@ -111,7 +111,7 @@ class ScheduleVerifierKahn : ScheduleVerifier
         return visited != graph.Count;                              
     }
 
-    private static Graph GraphOf(int vertexCount, int[][] edges)
+    private static MyGraph GraphOf(int vertexCount, int[][] edges)
     {
         List<List<int>> graph = new (vertexCount);
         for (int v = 0; v < vertexCount; v++) graph.Add(new());
