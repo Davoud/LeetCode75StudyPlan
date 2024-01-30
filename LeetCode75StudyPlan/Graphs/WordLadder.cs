@@ -93,12 +93,18 @@ internal class WordLadder : Solution<(string beginWord, string endWord, IList<st
     public int _LadderLength(string beginWord, string endWord, IList<string> wordList)
     {
         
-        int endWordIndex = wordList.IndexOf(endWord);        
-        if (endWordIndex == -1) return 0;
-        
-        wordList.Add(beginWord);
+        int end = wordList.IndexOf(endWord);        
+        if (end == -1) return 0;
 
-        var graph = new Imp.Graph(wordList.Count, Imp.GraphType.Undirected);
+        int begin = wordList.IndexOf(beginWord);
+        if (begin == -1)
+        {
+            wordList.Add(beginWord);
+            begin = wordList.Count - 1;
+        }
+        
+
+        var graph = new GrI32(wordList.Count, GraphType.Undirected);
 
         for(int i = 0; i < wordList.Count - 1; i++)
         {
@@ -118,9 +124,9 @@ internal class WordLadder : Solution<(string beginWord, string endWord, IList<st
             Console.WriteLine($"{i}:{wordList[i]} => {string.Join(", ", graph[i].Select(v => wordList[v]))}\n");            
         }
 
-        var bfs = new Imp.Bfs(graph, 0);
+        var bfs = new Bfs(graph, begin);
         var count = 0;
-        foreach(var v in bfs.ShortestPath(wordList.Count - 1, endWordIndex))
+        foreach(var v in bfs.ShortestPath(begin, end))
         {
             count++;
             Console.Write($"{wordList[v]} => ");

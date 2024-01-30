@@ -1,5 +1,5 @@
 ﻿namespace LeetCode75StudyPlan.Graphs.Imp;
-public interface IGraph<T>
+public interface IGraph<T> : IEnumerable<T>
 {
     public int VertexCount { get; }
     public IEnumerable<T> this[T index] { get; }

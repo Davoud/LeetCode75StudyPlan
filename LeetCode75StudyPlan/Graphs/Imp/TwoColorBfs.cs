@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LeetCode75StudyPlan.Graphs.Imp;
+﻿namespace LeetCode75StudyPlan.Graphs.Imp;
 
 internal class TwoColorBfs : Breadth1stSearcher
 {
@@ -21,15 +14,15 @@ internal class TwoColorBfs : Breadth1stSearcher
     public TwoColorBfs(IGraph<int> graph) : base(graph)
     {
         _colors = new NodeColor[graph.VertexCount];            
-        Run();
+        StartFrom();
     }
 
-    protected override void Run()
+    public override void StartFrom(int vertext = 0)
     {
-        InitSeach();
+        InitSearch();
         Bipartite = true;
 
-        for (int i = 0; i < _graph.VertexCount; i++)
+        for (int i = vertext; i < _graph.VertexCount; i++)
         {
             if (!_discovared[i])
             {
