@@ -104,7 +104,7 @@ internal class WordLadder : Solution<(string beginWord, string endWord, IList<st
         }
         
 
-        var graph = new GrI32(wordList.Count, GraphType.Undirected);
+        var graph = new GraphInt(wordList.Count, GraphType.Undirected);
 
         for(int i = 0; i < wordList.Count - 1; i++)
         {

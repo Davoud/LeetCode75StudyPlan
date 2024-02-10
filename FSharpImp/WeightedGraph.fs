@@ -1,0 +1,5 @@
+﻿namespace FSharpImp
+
+module WeightedGraph = ()
+
+

@@ -1,7 +1,15 @@
 ﻿namespace LeetCode75StudyPlan.Graphs.Imp;
+
+using System.Reflection;
 using Vertex = int;
-internal class DfsTraversal(IGraph<Vertex> graph) : Depth1stSearcher(graph)
+internal class DfsTraversal : Depth1stSearcher
 {
+    public DfsTraversal(IGraph<Vertex> graph): base(graph)
+    {
+        Init();
+        Dfs(0);
+    }
+
     protected override void ProcessEdge(Vertex v, Vertex y)
     {
         Console.WriteLine($"Edge {v} --> {y}");
@@ -25,10 +33,11 @@ class HasCycle : Depth1stSearcher
     public HasCycle(IGraph<Vertex> g) : base(g) 
     {                 
         hasCycleCondition = g.Type == GraphType.Undirected 
-            ? ((src, dest) => discovared[dest] && parent[src] != dest) 
-            : ((_, dest) => discovared[dest]);
+            ? ((src, dest) => discovered[dest] && parent[src] != dest) 
+            : ((_, dest) => discovered[dest]);
 
-        InitSearch();
+        Init();
+        Dfs(0);
 
     }
 
@@ -47,7 +56,7 @@ public static class GraphTests
 {
     private static IGraph<Vertex> Sample1(GraphType t)        
     {
-        var g = new GrI32(5, t);
+        var g = new GraphInt(5, t);
         g.AddEdge(0, 1);
         g.AddEdge(0, 3);
         g.AddEdge(1, 2);
@@ -56,6 +65,71 @@ public static class GraphTests
         g.AddEdge(4, 3);
         return g;
     }
+
+    public static void StronglyConnected1()
+    {
+        var g = GraphInt.DirectedFrom(
+            (0, 1), 
+            (1, 2), (1, 3), (1, 4),
+            (2, 0), 
+            (3, 0), (3, 7), (3, 5),            
+            (4, 5),
+            (5, 6), 
+            (6, 4),
+            (7, 5));
+
+        var sc = new StronglyConnectedComponentFinder(g);
+        Console.WriteLine($"It contains {sc.NumberOfComponents} strongly connected component");
+        foreach(var v in g)
+        {
+            Console.WriteLine($"Vertex {v} is in the component {sc.ComponentNumberOf(v)}");
+        }
+
+    }
+
+    public static void StronglyConnected2()
+    {
+        var g = GraphInt.DirectedFrom(
+            (0, 1),
+            (1, 2), (1, 3), (1, 4),
+            (2, 0),
+            (3, 0), (3, 7), (3, 5),
+            (4, 5),
+            (5, 6),
+            (6, 4),
+            (7, 5));
+
+        var sc = new StronglyConnectedComponentKosaraju(g);
+        Console.WriteLine($"It contains {sc.NumberOfComponents} strongly connected component");
+        foreach (var v in g)
+        {
+            Console.WriteLine($"Vertex {v} is in the component {sc.ComponentNumberOf(v)}");
+        }
+
+    }
+
+    public static void ArticulationVertexHunting1()
+    {
+        var g = GraphInt.UndirectedFrom((0, 1), (0, 2), (1, 3), (2, 3), (3, 4), (3, 5), (4, 5), (4, 6), (6, 7), (5, 7));
+
+        ArticulateVertexHunter hunter = new(g, true);
+         
+        foreach ((ArticulateVertexHunter.ArticulationVertexType type, int v) in hunter)
+        {
+            Console.WriteLine($"Articulate via {type} at {v}");
+        }
+    }
+
+    public static void ArticulationVertexHunting2()
+    {
+        var g = GraphInt.UndirectedFrom((0, 1), (0, 5), (1, 2), (2, 3), (3, 4), (4, 1));
+
+        foreach ((ArticulateVertexHunter.ArticulationVertexType type, int v) in new ArticulateVertexHunter(g))
+        {
+            Console.WriteLine($"Articulate via {type} at {v}");
+        }
+    }
+
 
     public static void FindCycle()
     {
@@ -74,7 +148,7 @@ public static class GraphTests
     {
         var g = Sample1(GraphType.Directed);
         var dfs = new DfsTraversal(g);
-        dfs.InitSearch();
+          
         int len = g.VertexCount;
 
         Console.WriteLine("\nParents:");
@@ -168,4 +242,22 @@ public static class GraphTests
         }
     }
 
+    public static void TopologicalSorting()
+    {
+        const int A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6;
+        
+        var g = new GraphInt(7, GraphType.Directed)
+            .WithEdges(
+                (A, B), (A, C), (B, C), (B, D), (C, E), 
+                (C, F), (F, E), (E, D), (G, A), (G, F));
+
+        var tps = new TopologicalSorter(g);
+        
+        
+
+        Console.WriteLine(string.Join(", ", tps.Select(ToChar)));
+
+        static char ToChar(int i) => (char)(i + 'A');
+        
+    }
 }

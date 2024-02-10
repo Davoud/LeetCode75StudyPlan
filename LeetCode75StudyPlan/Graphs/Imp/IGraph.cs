@@ -5,10 +5,20 @@ public interface IGraph<T> : IEnumerable<T>
     public IEnumerable<T> this[T index] { get; }
 
     public GraphType Type { get; }
+
+    public IGraph<T> Reverse();
 }
 
 public enum GraphType
 {
     Directed,
     Undirected
+}
+
+public enum EdgeType
+{
+    Tree,
+    Forward,
+    Backward,
+    Cross
 }

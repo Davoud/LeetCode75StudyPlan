@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LeetCode75StudyPlan.Tries;
+using System.Collections;
 
 namespace LeetCode75StudyPlan.Graphs.Imp;
 
@@ -121,6 +122,7 @@ class Breadth1stSearcher
         }
     }
 
+   
     protected virtual void ProcessVertexEarly(int v) { }
         
     protected virtual void ProcessEdge(int v, int y) { }    

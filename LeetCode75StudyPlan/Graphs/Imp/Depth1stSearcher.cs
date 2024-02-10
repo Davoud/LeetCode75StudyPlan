@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using LeetCode75StudyPlan.Tries;
+using System.Collections;
 using Vertex = int;
 
 namespace LeetCode75StudyPlan.Graphs.Imp;
@@ -72,32 +73,32 @@ class GraphDepthFirst<TVert> where TVert : notnull, IEquatable<TVert>
 class Depth1stSearcher(IGraph<int> graph)
 {
     protected readonly BitArray processed = new(graph.VertexCount);
-    protected readonly BitArray discovared = new(graph.VertexCount);
+    protected readonly BitArray discovered = new(graph.VertexCount);
     protected readonly Vertex[] parent = new Vertex[graph.VertexCount];
     protected readonly int[] entryTime = new int[graph.VertexCount];
     protected readonly int[] exitTime = new int[graph.VertexCount];
     protected bool finished = false;
     protected int time = 0;
-    public virtual void InitSearch(Vertex vertext = 0)
+    protected virtual void Init()
     {
         processed.SetAll(false);
-        discovared.SetAll(false);
+        discovered.SetAll(false);
         Array.Fill(parent, -1);
-        Dfs(vertext);
+        
     }
 
     protected void Dfs(Vertex v)
     {
         if(finished) return;
 
-        discovared[v] = true;
+        discovered[v] = true;
         entryTime[v] = ++time;
 
         ProcessVertexEarly(v);
 
         foreach(Vertex y in graph[v])
         {
-            if (!discovared[y])
+            if (!discovered[y])
             {
                 parent[y] = v;
                 ProcessEdge(v, y);
@@ -117,6 +118,17 @@ class Depth1stSearcher(IGraph<int> graph)
 
         processed[v] = true;
     }
+
+    protected EdgeType TypeOfEdge(int x, int y)
+    {
+        if (parent[y] == x) return EdgeType.Tree;
+        if (discovered[y] && !processed[y]) return EdgeType.Backward;
+        if (processed[y] && (entryTime[y] > entryTime[x])) return EdgeType.Forward;
+        if (processed[y] && (entryTime[y] < entryTime[x])) return EdgeType.Cross;
+
+        throw new ArgumentException($"Unknown EdgeType {x}->{y}");
+    }
+
 
     protected virtual void ProcessVertexEarly(Vertex v) { }
     protected virtual void ProcessEdge(Vertex v, Vertex y) { }

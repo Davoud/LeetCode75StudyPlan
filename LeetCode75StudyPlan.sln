@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeetCode75StudyPlan", "LeetCode75StudyPlan\LeetCode75StudyPlan.csproj", "{91EB0DB4-29D9-48CD-8454-415E0B3F49F7}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpImp", "FSharpImp\FSharpImp.fsproj", "{68653592-5318-4570-AD84-5AA4FB4FD742}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{91EB0DB4-29D9-48CD-8454-415E0B3F49F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91EB0DB4-29D9-48CD-8454-415E0B3F49F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91EB0DB4-29D9-48CD-8454-415E0B3F49F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68653592-5318-4570-AD84-5AA4FB4FD742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68653592-5318-4570-AD84-5AA4FB4FD742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68653592-5318-4570-AD84-5AA4FB4FD742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68653592-5318-4570-AD84-5AA4FB4FD742}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

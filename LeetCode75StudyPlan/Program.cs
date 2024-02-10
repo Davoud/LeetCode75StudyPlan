@@ -1,5 +1,11 @@
-﻿using LeetCode75StudyPlan;
-using LeetCode75StudyPlan.Graphs;
-using LeetCode75StudyPlan.Graphs.Imp;
+﻿using LeetCode75StudyPlan.Graphs.Imp;
+using static FSharpImp.Say;
 
-GraphTests.TestGraphChar();
+
+GraphTests.StronglyConnected1();
+
+Console.WriteLine();
+GraphTests.StronglyConnected2();
+
+
+
