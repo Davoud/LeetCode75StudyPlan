@@ -78,7 +78,7 @@ public static class GraphTests
             (6, 4),
             (7, 5));
 
-        var sc = new StronglyConnectedComponentFinder(g);
+        var sc = new StronglyConnectedComponentFinder(g, true);
         Console.WriteLine($"It contains {sc.NumberOfComponents} strongly connected component");
         foreach(var v in g)
         {
@@ -106,6 +106,21 @@ public static class GraphTests
             Console.WriteLine($"Vertex {v} is in the component {sc.ComponentNumberOf(v)}");
         }
 
+    }
+
+    public static void StronglyConnected3()
+    {
+        var g = GraphInt.DirectedFrom(
+            (0, 1), (1, 2), (2, 0),
+            (2, 3),
+            (3, 4), (4, 5), (5, 3));
+
+        var sc = new StronglyConnectedComponentFinder(g, true);
+        Console.WriteLine($"It contains {sc.NumberOfComponents} strongly connected component");
+        foreach (var v in g)
+        {
+            Console.WriteLine($"Vertex {v} is in the component {sc.ComponentNumberOf(v)}");
+        }
     }
 
     public static void ArticulationVertexHunting1()
@@ -198,7 +213,7 @@ public static class GraphTests
 
     public static void TestGraphChar()
     {
-        IGraph<char> g = new Graph<char>(6, GraphType.Directed)
+        IGraph<char> g = new Graph<char>(GraphType.Directed, 6)
             .WithEdges(
                  ('A', 'D'), ('B', 'E'), ('A', 'B'), ('B', 'C'),
                  ('D', 'E'), ('E', 'F'), ('C', 'F'));
@@ -229,7 +244,7 @@ public static class GraphTests
 
     public static void TestGraphString()
     {
-        var g = new Graph<string>(6, GraphType.Directed);
+        var g = new Graph<string>(GraphType.Directed, 6);
 
         g.WithEdges(
             ("Aa", "D"), ("B", "E"), ("Aa", "B"), ("B", "Cc"),

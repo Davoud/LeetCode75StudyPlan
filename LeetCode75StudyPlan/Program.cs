@@ -1,11 +1,13 @@
-﻿using LeetCode75StudyPlan.Graphs.Imp;
-using static FSharpImp.Say;
-
-
-GraphTests.StronglyConnected1();
-
-Console.WriteLine();
-GraphTests.StronglyConnected2();
+﻿using LeetCode75StudyPlan;
+using LeetCode75StudyPlan.Graphs;
+using LeetCode75StudyPlan.Graphs.Imp;
 
 
 
+//((ITestable)new RecustructItinerary()).RunTests();
+
+//((ITestable)new RecustructItineraryLeetCode()).RunTests();
+
+FSharpImp.Tests.TestKruskal();
+
+FSharpImp.Tests.TestPrim();

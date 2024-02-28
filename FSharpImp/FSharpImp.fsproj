@@ -6,8 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="WeightedGraph.fs" />
-    <Compile Include="Library.fs" />
+    <Compile Include="Graphs\UnionFind.fs" />
+    <Compile Include="Graphs\WeightedGraph.fs" />
+    <Compile Include="Graphs\MinSpanningTrees.fs" />
+    <Compile Include="Tests.fs" />
   </ItemGroup>
 
 </Project>

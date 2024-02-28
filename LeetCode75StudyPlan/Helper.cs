@@ -289,4 +289,30 @@ public static class Helper
         }
         return chars;
     }
+
+    public class VerboseArray<T>(T[] input, bool disableLogging = false) : IEnumerable<T>
+    {
+      
+        public T this[int i]
+        {
+            get
+            {
+                if(!disableLogging) Console.WriteLine($"a[{i}] is {input[i]}");
+                return input[i];
+            }
+
+            set
+            {
+                if (!disableLogging) Console.WriteLine($"a[{i}] <- {value}");
+                input[i] = value;
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return input.Select(i => i).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
 }

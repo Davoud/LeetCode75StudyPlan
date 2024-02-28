@@ -4,13 +4,13 @@ using System.ComponentModel.Design;
 namespace LeetCode75StudyPlan.Graphs.Imp;
 
 
-public class Graph<TVert>(int vertexCount, GraphType type) : IGraph<TVert> where TVert : notnull
+public class Graph<TVert>(GraphType type, int? vertexCount = null) : IGraph<TVert> where TVert : notnull
 {
 
-    public int VertexCount => vertexCount;
+    public int VertexCount => _graph.Count;
     public GraphType Type => type;
 
-    private readonly Dictionary<TVert, SortedSet<TVert>?> _graph =  new(vertexCount);
+    private readonly Dictionary<TVert, SortedSet<TVert>?> _graph =  new(vertexCount ?? 4);
 
     public IEnumerable<TVert> this[TVert vertex] 
     {
@@ -49,7 +49,7 @@ public class Graph<TVert>(int vertexCount, GraphType type) : IGraph<TVert> where
 
     public IGraph<TVert> Reverse()
     {
-        var g = new Graph<TVert>(VertexCount, Type);
+        var g = new Graph<TVert>(Type, VertexCount);
 
         foreach(TVert v in _graph.Keys)
         {
