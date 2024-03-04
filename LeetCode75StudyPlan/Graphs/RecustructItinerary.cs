@@ -1,47 +1,99 @@
 ﻿namespace LeetCode75StudyPlan.Graphs;
 using Graphs.Imp;
-using System.Collections;
-using System.Collections.Immutable;
 
-internal class RecustructItineraryLeetCode :  Solution<IList<IList<string>>, IList<string>>
+internal class RecustructItineraryLeetCode : Solution<IList<IList<string>>, IList<string>>
 {
-    private List<string> itinerary;
-    private Dictionary<string, bool> marked;
-    public IList<string> FindItinerary(IList<IList<string>> tickets)
-    {        
-        var graph = BuildGraph(tickets);
-
-        itinerary = new() { "JFK" };
-        marked = graph.ToDictionary(k => k.Key, _ => false);
-        Dfs(graph, "JFK");
-        return itinerary;
+    class Vertex 
+    {
+        private int outDegree;
+        private readonly List<string> edges = [];
+        public void Add(string value)
+        {
+            edges.Add(value);
+            outDegree++;
+        }
+        public void SortDesc() => edges.Sort((a, b) => b.CompareTo(a));
+        public bool HasMoreEdges => outDegree != 0;
+        public string Next => edges[--outDegree];
     }
 
-    private void Dfs(Dictionary<string, List<string>> graph, string v) 
+    public IList<string> FindItinerary(IList<IList<string>> tickets)
     {
-        marked[v] = true;
-        foreach(string y in graph[v])
+        Dictionary<string, Vertex> graph = ToGraph(tickets);
+
+        var path = new Stack<string>();
+        Dfs("JFK");
+        return path.ToList();
+
+        void Dfs(string v)
         {
-            itinerary.Add(y);
-            if (!marked[y])
-                Dfs(graph, y);                        
+            Vertex vertex = graph[v];
+            while (vertex.HasMoreEdges) Dfs(vertex.Next);
+            path.Push(v);
         }
     }
 
+    private static Dictionary<string, Vertex> ToGraph(IList<IList<string>> tickets)
+    {
+        var graph = new Dictionary<string, Vertex>();
+        
+        foreach (var ticket in tickets)
+        {
+            graph.TryAdd(ticket[0], new());
+            graph.TryAdd(ticket[1], new());
+            graph[ticket[0]].Add(ticket[1]);
+        }
+        
+        foreach (Vertex v in graph.Values)
+        {
+            v.SortDesc();
+        }
+        
+        return graph;
+    }
+
+    
+    
+    public IList<string> _FindItinerary(IList<IList<string>> tickets)
+    {
+        Stack<string> path = new();
+        Dictionary<string, int> outgoing = new();
+        Dictionary<string, List<string>> graph = BuildGraph(tickets);
+        
+        foreach (var item in graph)
+        {
+            outgoing[item.Key] = item.Value.Count;
+        }
+
+        Dfs("JFK");
+        return path.ToList();
+
+        void Dfs(string v)
+        {
+            while (outgoing[v] != 0)
+            {
+                outgoing[v]--;
+                Dfs(graph[v][outgoing[v]]);
+            }
+            path.Push(v);
+        }
+    }
+
+    
     private Dictionary<string, List<string>> BuildGraph(IList<IList<string>> tickets)
     {
         var g = new Dictionary<string, List<string>>();
 
-        foreach(var ticket in tickets)
+        foreach (var ticket in tickets)
         {
             g.TryAdd(ticket[0], new());
             g.TryAdd(ticket[1], new());
-            g[ticket[0]].Add(ticket[1]);            
+            g[ticket[0]].Add(ticket[1]);
         }
-        
-        foreach(List<string> ajd in g.Values)
+
+        foreach (List<string> ajd in g.Values)
         {
-            ajd.Sort();
+            ajd.Sort((a, b) => b.CompareTo(a));
         }
 
         return g;
@@ -53,6 +105,8 @@ internal class RecustructItineraryLeetCode :  Solution<IList<IList<string>>, ILi
     {
         get
         {
+            //yield return ([["A", "B"], ["B", "C"], ["C", "D"], ["B", "E"], ["E", "B"]],
+            //    ["A", "B", "E", "B", "C", "D"]);
 
             yield return ([["JFK", "KUL"], ["JFK", "NRT"], ["NRT", "JFK"]],
                 ["JFK", "NRT", "JFK", "KUL"]);
@@ -61,7 +115,7 @@ internal class RecustructItineraryLeetCode :  Solution<IList<IList<string>>, ILi
                 ["JFK", "MUC", "LHR", "SFO", "SJC"]);
 
             yield return ([["JFK", "SFO"], ["JFK", "ATL"], ["SFO", "ATL"], ["ATL", "JFK"], ["ATL", "SFO"]],
-                ["JFK", "ATL", "JFK", "SFO", "ATL", "SFO"]);                
+                ["JFK", "ATL", "JFK", "SFO", "ATL", "SFO"]);
 
         }
     }
@@ -73,17 +127,17 @@ internal class RecustructItineraryLeetCode :  Solution<IList<IList<string>>, ILi
         return actual.SequenceEqual(expected);
     }
 }
-    
+
 
 
 internal class RecustructItinerary : Solution<IList<IList<string>>, IList<string>>
 {
     public IList<string> FindItinerary(IList<IList<string>> tickets)
-    {         
+    {
         var g = new Graph<string>(GraphType.Directed);
-        foreach(var ticket in tickets)        
+        foreach (var ticket in tickets)
             g.AddEdge(ticket[0], ticket[1]);
-        
+
         return new ItineraryDfs(g, "JFK").Itinerary;
     }
 

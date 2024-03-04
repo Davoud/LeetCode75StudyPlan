@@ -4,10 +4,4 @@ using LeetCode75StudyPlan.Graphs.Imp;
 
 
 
-//((ITestable)new RecustructItinerary()).RunTests();
-
-//((ITestable)new RecustructItineraryLeetCode()).RunTests();
-
-FSharpImp.Tests.TestKruskal();
-
-FSharpImp.Tests.TestPrim();
+((ITestable)new MinNetworkDelayTime()).RunTests();
