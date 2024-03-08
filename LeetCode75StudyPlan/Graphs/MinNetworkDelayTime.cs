@@ -28,14 +28,12 @@ internal class MinNetworkDelayTime : Solution<(int[][] times, int n, int k), int
         return max;
     }
 
-    private int?[] DijkstraShortestPath(List<(int u, int w)>[] graph, int start)
+    private int?[] DijkstraShortestPath(List<(int u, int w)>[] graph, int v)
     {
         var intree = new BitArray(graph.Length);
         var distance = new int?[graph.Length];
-
-        (int v, int dist) = (start, int.MaxValue);
-
-        distance[start] = 0;
+      
+        distance[v] = 0;
 
         while (!intree[v])
         {
@@ -50,19 +48,25 @@ internal class MinNetworkDelayTime : Solution<(int[][] times, int n, int k), int
                     }
                 }
             }
-
-            (v, dist) = (1, int.MaxValue);
-            for (int i = 1; i < graph.Length; i++)
-            {                
-                if (!intree[i] && distance[i] is int minDist && dist > minDist)
-                {
-                    dist = minDist;
-                    v = i;
-                }
-            }
+            
+            v = ClosestNonTreeVertex();            
         }
 
         return distance;        
+
+        int ClosestNonTreeVertex()
+        {
+            (int vert, int min) = (1, int.MaxValue);
+            for (int i = 1; i < graph.Length; i++)
+            {
+                if (!intree[i] && distance[i] is int dist && dist < min)
+                {
+                    min = dist;
+                    vert = i;
+                }
+            }
+            return vert;
+        }
     }
 
     protected override string Title => "743. Network Delay Time";
