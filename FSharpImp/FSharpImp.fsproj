@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Graphs\NetFlow.fs" />
     <Compile Include="Graphs\UnionFind.fs" />
     <Compile Include="Graphs\WeightedGraph.fs" />
     <Compile Include="Graphs\MinSpanningTrees.fs" />

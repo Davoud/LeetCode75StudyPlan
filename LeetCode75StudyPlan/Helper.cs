@@ -1,4 +1,5 @@
 ﻿
+using LeetCode75StudyPlan;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -6,7 +7,9 @@ using System.Runtime.CompilerServices;
 
 namespace System;
 public static class Helper
-{       
+{
+    public static void Test<T>() where T : ITestable, new() => ((ITestable)new T()).RunTests();
+
     public readonly static LinkListGenerator lx = new();
     public static void WriteLine(this string value) => Console.WriteLine(value);
 

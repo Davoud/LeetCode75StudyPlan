@@ -91,18 +91,18 @@ internal class SwimInRisingWater : Solution<int[][], int>
         public bool Connected(int x, int y) => Find(x) == Find(y);
         public void Connect(int x, int y)
         {
-            (int r1, int r2) = (Find(x), Find(y));
-            if (r1 != r2)
+            (int i, int j) = (Find(x), Find(y));
+            if (i != j)
             {
-                if (sz[r1] >= sz[r2])
+                if (sz[i] >= sz[j])
                 {
-                    sz[r1] += sz[r2];
-                    id[r2] = r1;
+                    sz[i] += sz[j];
+                    id[j] = i;
                 }
                 else
                 {
-                    sz[r2] += sz[r1];
-                    id[r1] = r2;
+                    sz[j] += sz[i];
+                    id[i] = j;
                 }
             }
         }
