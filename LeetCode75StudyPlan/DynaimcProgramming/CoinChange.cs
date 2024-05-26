@@ -5,7 +5,7 @@ namespace LeetCode75StudyPlan.DynaimcProgramming;
 
 internal class CoinChanger : Solution<(int[] coins, int amount), int>
 {
-    public static int CoinChangeRecursiveDP(int[] coins, int amount)
+    public static int CoinChangeDP(int[] coins, int amount)
     {
         int max = amount + 1;
         var dp = new int[amount + 1];
@@ -84,6 +84,6 @@ internal class CoinChanger : Solution<(int[] coins, int amount), int>
     protected override int Solve((int[] coins, int amount) input)
     {
         //return CoinChangeRecursiveMem(input.coins, input.amount);
-        return CoinChangeRecursiveDP(input.coins, input.amount);
+        return CoinChangeDP(input.coins, input.amount);
     }
 }

@@ -1,10 +1,10 @@
 ﻿
+using BenchmarkDotNet.Attributes;
 using System.Numerics;
 using System.Reflection;
 
 namespace LeetCode75StudyPlan;
-
-internal abstract class Solution<T, R> : ITestable
+public abstract class Solution<T, R> : ITestable
 {
     protected abstract string Title { get; }
     protected abstract R Solve(T input);
@@ -72,7 +72,7 @@ internal abstract class Solution<T, R> : ITestable
             return actual is null && expected is null;
         }
     }
-
+    
     void ITestable.RunTests()
     {
         Console.WriteLine(Environment.NewLine + Title);

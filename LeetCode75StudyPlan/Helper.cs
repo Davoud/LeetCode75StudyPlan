@@ -29,7 +29,7 @@ public static class Helper
     public static string AsStr<T>(this IEnumerable<T> source, string open, string close) => open + string.Join(", ", source) + close;
     public static void Dump<T>(this IEnumerable<T> source)
         => Console.WriteLine(string.Join(", ", source));
-   
+
     public static int[] Arr(Range range)
     {
         int len = range.End.Value - range.Start.Value;
@@ -40,16 +40,16 @@ public static class Helper
         }
         return output;
     }
-       
-    public static void Dump<T>(this Span<T> input, char offset = 'a') where T: INumber<T>
+
+    public static void Dump<T>(this Span<T> input, char offset = 'a') where T : INumber<T>
     {
-        for(int i = 0; i < input.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            if (input[i] == default) continue;            
+            if (input[i] == default) continue;
             Console.Write($"{(char)(i + offset),2}");
         }
         Console.WriteLine();
-        for(int i = 0; i < input.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
             if (input[i] == default) continue;
             Console.Write($"{input[i],2}");
@@ -64,14 +64,14 @@ public static class Helper
         {
             if (input[i] == default) continue;
             sb.Append((char)(i + offset));
-            sb.Append(input[i]).Append(" | ");            
-        }        
+            sb.Append(input[i]).Append(" | ");
+        }
         return sb.ToString();
     }
 
     public static string Str<T>(this T input)
     {
-        if(input is string s)
+        if (input is string s)
         {
             return $"\"{s}\"";
         }
@@ -88,12 +88,12 @@ public static class Helper
     }
 
 
-    public static void RunTests<T, R>(this IEnumerable<(T input, R expected)> testCases, Func<T, R> subject) 
-        where R : IEqualityOperators<R, R, bool>   
+    public static void RunTests<T, R>(this IEnumerable<(T input, R expected)> testCases, Func<T, R> subject)
+        where R : IEqualityOperators<R, R, bool>
     {
         foreach (var (input, expected) in testCases)
         {
-            var actual = subject(input);  
+            var actual = subject(input);
             if (expected == actual)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
@@ -111,7 +111,7 @@ public static class Helper
     public static void RunTests<T, R>(Func<T, R> subject, params (T input, R expected)[] testCases)
        where R : IEqualityOperators<R, R, bool>
     {
-        testCases.RunTests(subject);        
+        testCases.RunTests(subject);
     }
 
     public static void RunTests<T>(this IEnumerable<(T input, bool expected)> testCases, Func<T, bool> subject)
@@ -140,11 +140,11 @@ public static class Helper
             Console.ResetColor();
         }
 
-        
+
     }
 
     public static int BinSearcher(int min, int max, Predicate<int> stisfises)
-    {        
+    {
         while (min < max)
         {
             int mid = (max + min) >> 1; // min + (max - min) / 2;
@@ -159,7 +159,14 @@ public static class Helper
         }
         return min;
     }
-       
+
+    public static string StringOf(int len, char filler = ' ')
+    {
+        return string.Create(len, filler, (s, c) =>
+        {
+            for (int i = 0; i < len; i++) s[i] = c;
+        });
+    }
 
     public static class Mathematics
     {
@@ -182,7 +189,7 @@ public static class Helper
         }
     }
 
-    public class ListNode: IEnumerable<int>, IEqualityOperators<ListNode?, ListNode?, bool>
+    public class ListNode : IEnumerable<int>, IEqualityOperators<ListNode?, ListNode?, bool>
     {
         public int val;
         public ListNode? next;
@@ -200,7 +207,7 @@ public static class Helper
             {
                 yield return node.val;
                 node = node.next;
-            } 
+            }
             while (node != null);
         }
 
@@ -211,7 +218,7 @@ public static class Helper
 
         public override string ToString()
         {
-            return "[" + string.Join(", ", this) + "]";             
+            return "[" + string.Join(", ", this) + "]";
         }
 
         public static bool operator ==(ListNode? left, ListNode? right)
@@ -241,7 +248,7 @@ public static class Helper
                 return false;
             }
 
-            if(obj is ListNode other)
+            if (obj is ListNode other)
             {
                 return this.SequenceEqual(other);
             }
@@ -252,9 +259,9 @@ public static class Helper
         public override int GetHashCode()
         {
             int h = 37;
-            foreach(int item in this)
+            foreach (int item in this)
             {
-                h += (h * 17) + item.GetHashCode(); 
+                h += (h * 17) + item.GetHashCode();
             }
             return h;
         }
@@ -265,7 +272,7 @@ public static class Helper
         public ListNode? this[params int[] ints]
         {
             get
-            {                
+            {
                 return AsLinkList(ints.AsSpan());
             }
         }
@@ -273,20 +280,20 @@ public static class Helper
         public ListNode? Empty => null;
 
         private ListNode AsLinkList(Span<int> values)
-        {            
+        {
             if (values.Length == 1)
             {
                 return new(values[0], null);
             }
-           
+
             return new(values[0], AsLinkList(values[1..]));
         }
     }
-   
+
     public static char[][] Char2D(params string[] input)
     {
         var chars = new char[input.Length][];
-        for(int i = 0; i < input.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
             chars[i] = input[i].ToCharArray();
         }
@@ -295,12 +302,12 @@ public static class Helper
 
     public class VerboseArray<T>(T[] input, bool disableLogging = false) : IEnumerable<T>
     {
-      
+
         public T this[int i]
         {
             get
             {
-                if(!disableLogging) Console.WriteLine($"a[{i}] is {input[i]}");
+                if (!disableLogging) Console.WriteLine($"a[{i}] is {input[i]}");
                 return input[i];
             }
 
